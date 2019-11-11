@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>20个常用正则表达式 | literaryloong&#39;s 博客</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="20个常用正则表达式 | literaryloong&#39;s 博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="about">
+<meta property="og:url" content="https:&#x2F;&#x2F;literaryloong.com&#x2F;about&#x2F;index.html">
+<meta property="og:site_name" content="literaryloong&#39;s 博客">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-06T03:52:27.460Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/github.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>literaryloong</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/literaryloong" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="weibo" href="http://weibo.com/wonloong" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-weibo"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:literaryloong@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=10183795" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(28)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="28">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/2019/11/09/Linux_Static_IP_config/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux 静态IP配置">Linux 静态IP配置</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/k8s_Getting_Start/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="k8s 入门">k8s 入门</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/command_chown_chgrp/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="chown 命令">chown 命令</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/command_firewall/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="firewall-cmd">firewall-cmd</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/command_top/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="top 命令">top 命令</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/cpuinfo/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="查看CPU信息">查看CPU信息</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/directory-share/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="共享目录设置">共享目录设置</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/enabled-user-root/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="启用root用户登录">启用root用户登录</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/install_jdk/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="JDK 安装">JDK 安装</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/linux-new-user-add-sudo/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="增加用户sudo权限">增加用户sudo权限</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/nginx-config/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="nginx 配置解析">nginx 配置解析</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/Ambari-install/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Ambari 安装">Ambari 安装</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/command_alias/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="alias 命令">alias 命令</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/command_chmod/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="chmod 命令">chmod 命令</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/docker_install/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker入门">docker入门</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/etcd/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Etcd 架构与实现解析">Etcd 架构与实现解析</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/docker_file/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Dockerfile">Dockerfile</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/hadoop_install/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Hadoop 入门">Hadoop 入门</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/install_PostgreSQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安装 Postgres">安装 Postgres</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/11/interview/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="interview">interview</span>
+            <span class="post-date" title="2019-11-11 10:25:20">2019/11/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/kafka_install/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安装 kafka">安装 kafka</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/Login_No_Passwd/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="免密登录设置">免密登录设置</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/pattern_comm/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="20个常用正则表达式">20个常用正则表达式</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/postgresql-master-slaver/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="postgresql 主从设置">postgresql 主从设置</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/python_project_create_requirements/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="python依赖输出到文件">python依赖输出到文件</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/es/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ES 简介">ES 简介</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/es_install/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ES 安装">ES 安装</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/es-params/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ES 参数说明">ES 参数说明</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-pattern_comm" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">20个常用正则表达式</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:50:00'>2019-11-09 17:18</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#20个常用正则表达式"><span class="toc-text">20个常用正则表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#校验密码强度"><span class="toc-text">校验密码强度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#校验中文"><span class="toc-text">校验中文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#由数字、26个英文字母或下划线组成的字符串"><span class="toc-text">由数字、26个英文字母或下划线组成的字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#校验E-Mail-地址"><span class="toc-text">校验E-Mail 地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#校验身份证号码"><span class="toc-text">校验身份证号码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#校验日期"><span class="toc-text">校验日期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#校验金额"><span class="toc-text">校验金额</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#校验手机号"><span class="toc-text">校验手机号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断IE的版本"><span class="toc-text">判断IE的版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#校验IP地址"><span class="toc-text">校验IP地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#检查URL的前缀"><span class="toc-text">检查URL的前缀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提取URL链接"><span class="toc-text">提取URL链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件路径及扩展名校验"><span class="toc-text">文件路径及扩展名校验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提取Color-Hex-Codes"><span class="toc-text">提取Color Hex Codes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提取网页图片"><span class="toc-text">提取网页图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提取页面超链接"><span class="toc-text">提取页面超链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查找CSS属性"><span class="toc-text">查找CSS属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽取注释"><span class="toc-text">抽取注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#匹配HTML标签"><span class="toc-text">匹配HTML标签</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="20个常用正则表达式"><a href="#20个常用正则表达式" class="headerlink" title="20个常用正则表达式"></a>20个常用正则表达式</h1><h2 id="校验密码强度"><a href="#校验密码强度" class="headerlink" title="校验密码强度"></a>校验密码强度</h2><blockquote>
+<p>密码的强度必须是包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).&#123;8,10&#125;$</span><br></pre></td></tr></table></figure>
+
+<h2 id="校验中文"><a href="#校验中文" class="headerlink" title="校验中文"></a>校验中文</h2><blockquote>
+<p>字符串仅能是中文</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[\一-\龥]&#123;0,&#125;$</span><br></pre></td></tr></table></figure>
+
+<h2 id="由数字、26个英文字母或下划线组成的字符串"><a href="#由数字、26个英文字母或下划线组成的字符串" class="headerlink" title="由数字、26个英文字母或下划线组成的字符串"></a>由数字、26个英文字母或下划线组成的字符串</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\w+$</span><br></pre></td></tr></table></figure>
+
+<h2 id="校验E-Mail-地址"><a href="#校验E-Mail-地址" class="headerlink" title="校验E-Mail 地址"></a>校验E-Mail 地址</h2><blockquote>
+<p>同密码一样，下面是E-mail地址合规性的正则检查语句。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[\w!#$%&amp;&apos;*+/=?^_`&#123;|&#125;~-]+(?:\.[\w!#$%&amp;&apos;*+/=?^_`&#123;|&#125;~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="校验身份证号码"><a href="#校验身份证号码" class="headerlink" title="校验身份证号码"></a>校验身份证号码</h2><blockquote>
+<p>下面是身份证号码的正则校验。15 或 18位。</p>
+<p>15位：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[1-9]\d&#123;7&#125;((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d&#123;3&#125;$</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>18位：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[1-9]\d&#123;5&#125;[1-9]\d&#123;3&#125;((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d&#123;3&#125;([0-9]|X)$</span><br></pre></td></tr></table></figure>
+
+<h2 id="校验日期"><a href="#校验日期" class="headerlink" title="校验日期"></a>校验日期</h2><blockquote>
+<p>“yyyy-mm-dd“ 格式的日期校验，已考虑平闰年。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(?:(?!0000)[0-9]&#123;4&#125;-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]&#123;2&#125;(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$</span><br></pre></td></tr></table></figure>
+
+<h2 id="校验金额"><a href="#校验金额" class="headerlink" title="校验金额"></a>校验金额</h2><blockquote>
+<p> 金额校验，精确到2位小数。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[0-9]+(.[0-9]&#123;2&#125;)?$</span><br></pre></td></tr></table></figure>
+
+<h2 id="校验手机号"><a href="#校验手机号" class="headerlink" title="校验手机号"></a>校验手机号</h2><blockquote>
+<p>下面是国内 13、15、18开头的手机号正则表达式。（可根据目前国内收集号扩展前两位开头号码）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d&#123;8&#125;$</span><br></pre></td></tr></table></figure>
+
+<h2 id="判断IE的版本"><a href="#判断IE的版本" class="headerlink" title="判断IE的版本"></a>判断IE的版本</h2><blockquote>
+<p>IE目前还没被完全取代，很多页面还是需要做版本兼容，下面是IE版本检查的表达式。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^.*MSIE [5-8](?:\.[0-9]+)?(?!.*Trident\/[5-9]\.0).*$</span><br></pre></td></tr></table></figure>
+
+<h2 id="校验IP地址"><a href="#校验IP地址" class="headerlink" title="校验IP地址"></a>校验IP地址</h2><blockquote>
+<p>IP4 正则语句。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.)&#123;3&#125;(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>IP6 正则语句。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(([0-9a-fA-F]&#123;1,4&#125;:)&#123;7,7&#125;[0-9a-fA-F]&#123;1,4&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,7&#125;:|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,6&#125;:[0-9a-fA-F]&#123;1,4&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,5&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,2&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,4&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,3&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,3&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,4&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,2&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,5&#125;|[0-9a-fA-F]&#123;1,4&#125;:((:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,6&#125;)|:((:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,7&#125;|:)|fe80:(:[0-9a-fA-F]&#123;0,4&#125;)&#123;0,4&#125;%[0-9a-zA-Z]&#123;1,&#125;|::(ffff(:0&#123;1,4&#125;)&#123;0,1&#125;:)&#123;0,1&#125;((25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9])\.)&#123;3,3&#125;(25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9])|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,4&#125;:((25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9])\.)&#123;3,3&#125;(25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9]))</span><br></pre></td></tr></table></figure>
+
+<h2 id="检查URL的前缀"><a href="#检查URL的前缀" class="headerlink" title="检查URL的前缀"></a>检查URL的前缀</h2><blockquote>
+<p>应用开发中很多时候需要区分请求是HTTPS还是HTTP，通过下面的表达式可以取出一个url的前缀然后再逻辑判断。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (!s.match(/^[a-zA-Z]+:\/\//))&#123; s = &apos;http://&apos; + s;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="提取URL链接"><a href="#提取URL链接" class="headerlink" title="提取URL链接"></a>提取URL链接</h2><blockquote>
+<p>下面的这个表达式可以筛选出一段文本中的URL。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(f|ht)&#123;1&#125;(tp|tps):\/\/([\w-]+\.)+[\w-]+(\/[\w- ./?%&amp;=]*)?</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="文件路径及扩展名校验"><a href="#文件路径及扩展名校验" class="headerlink" title="文件路径及扩展名校验"></a>文件路径及扩展名校验</h2><blockquote>
+<p> 验证windows下文件路径和扩展名（下面的例子中为.txt文件）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^([a-zA-Z]\:|\\)\\([^\\]+\\)*[^\/:*?&quot;&lt;&gt;|]+\.txt(l)?$</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="提取Color-Hex-Codes"><a href="#提取Color-Hex-Codes" class="headerlink" title="提取Color Hex Codes"></a>提取Color Hex Codes</h2><blockquote>
+<p>有时需要抽取网页中的颜色代码，可以使用下面的表达式。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^#([A-Fa-f0-9]&#123;6&#125;|[A-Fa-f0-9]&#123;3&#125;)$</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="提取网页图片"><a href="#提取网页图片" class="headerlink" title="提取网页图片"></a>提取网页图片</h2><p>假若你想提取网页中所有图片信息，可以利用下面的表达式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\&lt; *[img][^\\&gt;]*[src] *= *[\&quot;\&apos;]&#123;0,1&#125;([^\&quot;\&apos;\ &gt;]*)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="提取页面超链接"><a href="#提取页面超链接" class="headerlink" title="提取页面超链接"></a>提取页面超链接</h2><blockquote>
+<p>提取html中的超链接。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&lt;a\s*(?!.*\brel=)[^&gt;]*)(href=&quot;https?:\/\/)((?!(?:(?:www\.)?&apos;.implode(&apos;|(?:www\.)?&apos;, $follow_list).&apos;))[^&quot;]+)&quot;((?!.*\brel=)[^&gt;]*)(?:[^&gt;]*)&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="查找CSS属性"><a href="#查找CSS属性" class="headerlink" title="查找CSS属性"></a>查找CSS属性</h2><blockquote>
+<p>通过下面的表达式，可以搜索到相匹配的CSS属性。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\s*[a-zA-Z\-]+\s*[:]&#123;1&#125;\s[a-zA-Z0-9\s.#]+[;]&#123;1&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="抽取注释"><a href="#抽取注释" class="headerlink" title="抽取注释"></a>抽取注释</h2><blockquote>
+<p>如果你需要移除HMTL中的注释，可以使用如下的表达式。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--(.*?)--&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="匹配HTML标签"><a href="#匹配HTML标签" class="headerlink" title="匹配HTML标签"></a>匹配HTML标签</h2><blockquote>
+<p>通过下面的表达式可以匹配出HTML中的标签属性。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;\/?\w+((\s+\w+(\s*=\s*(?:&quot;.*?&quot;|&apos;.*?&apos;|[\^&apos;&quot;&gt;\s]+))?)+\s*|\s*)\/?&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
+    </div>
+</article>
+
+
+<p>
+    <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>20个常用正则表达式</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:50:00</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/pattern_comm/" title="20个常用正则表达式">https://literaryloong.com/2019/11/09/pattern_comm/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2020 literaryloong</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)" target="_blank" rel="noopener"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" target="_blank" rel="noopener" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+    .post .pjax article :not(pre) > code {
+        color: #24292e;
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+        background-color: rgba(27,31,35,.05);
+        border-radius: 3px;
+        font-size: 85%;
+        margin: 0;
+        padding: .2em .4em;
+    }
+    
+</style>
+
+
+
+
+
+
+
+</html>
