@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>firewall-cmd | literaryloong&#39;s 博客</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="firewall-cmd | literaryloong&#39;s 博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="about">
+<meta property="og:url" content="https:&#x2F;&#x2F;literaryloong.com&#x2F;about&#x2F;index.html">
+<meta property="og:site_name" content="literaryloong&#39;s 博客">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-06T03:52:27.460Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/github.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>literaryloong</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/literaryloong" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="weibo" href="http://weibo.com/wonloong" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-weibo"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:literaryloong@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=10183795" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(28)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="28">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/2019/11/09/Linux_Static_IP_config/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux 静态IP配置">Linux 静态IP配置</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/k8s_Getting_Start/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="k8s 入门">k8s 入门</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/command_chown_chgrp/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="chown 命令">chown 命令</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/command_firewall/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="firewall-cmd">firewall-cmd</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/command_top/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="top 命令">top 命令</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/cpuinfo/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="查看CPU信息">查看CPU信息</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/directory-share/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="共享目录设置">共享目录设置</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/enabled-user-root/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="启用root用户登录">启用root用户登录</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/install_jdk/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="JDK 安装">JDK 安装</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/linux-new-user-add-sudo/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="增加用户sudo权限">增加用户sudo权限</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/nginx-config/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="nginx 配置解析">nginx 配置解析</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/Ambari-install/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Ambari 安装">Ambari 安装</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/command_alias/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="alias 命令">alias 命令</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/command_chmod/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="chmod 命令">chmod 命令</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/docker_install/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker入门">docker入门</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/etcd/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Etcd 架构与实现解析">Etcd 架构与实现解析</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/docker_file/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Dockerfile">Dockerfile</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/hadoop_install/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Hadoop 入门">Hadoop 入门</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/install_PostgreSQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安装 Postgres">安装 Postgres</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/11/interview/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="interview">interview</span>
+            <span class="post-date" title="2019-11-11 10:25:20">2019/11/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/kafka_install/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安装 kafka">安装 kafka</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/Login_No_Passwd/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="免密登录设置">免密登录设置</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/pattern_comm/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="20个常用正则表达式">20个常用正则表达式</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/postgresql-master-slaver/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="postgresql 主从设置">postgresql 主从设置</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/python_project_create_requirements/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="python依赖输出到文件">python依赖输出到文件</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/es/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ES 简介">ES 简介</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/es_install/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ES 安装">ES 安装</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/11/09/es-params/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ES 参数说明">ES 参数说明</span>
+            <span class="post-date" title="2019-11-09 17:18:45">2019/11/09</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-command_firewall" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">firewall-cmd</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:37:49'>2019-11-09 17:18</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#firewall"><span class="toc-text">firewall</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特性"><span class="toc-text">特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一般应用"><span class="toc-text">一般应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作用域内应用"><span class="toc-text">作用域内应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#端口管理"><span class="toc-text">端口管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务管理"><span class="toc-text">服务管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IP伪装和端口转发"><span class="toc-text">IP伪装和端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接口管理"><span class="toc-text">接口管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICMP"><span class="toc-text">ICMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#直接选项"><span class="toc-text">直接选项</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="firewall"><a href="#firewall" class="headerlink" title="firewall"></a>firewall</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>FirewallD提供了支持网络/防火墙区域(zone)定义网络链接以及接口安全等级的动态防火墙管理工具。它支持IPv4, IPv6 防火墙设置以及以太网桥接，也支持允许服务或者应用程序直接添加防火墙规则的接口。FirewallD拥有运行时配置和永久配置选项.</p>
+<p>采用<code>firewall-cmd</code>(command)或<code>firewall-config</code>(gui)来动态的管理kernel netfilter的临时或永久的接口规则，并实时生效而无需重启服务.</p>
+</blockquote>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
+<li><p><code>zone</code> : 作用域  </p>
+<p>提供以了下几个作用域:</p>
+<blockquote>
+<p><code>drop</code> :  任何流入网络的包都被丢弃，不作出任何响应，只允许流出的网络连接。即使开放了某些服务(比如http)，这些服务的数据也是不允许通过的</p>
+<p><code>block</code> : 任何进入的网络连接都被拒绝，并返回IPv4的icmp-host-prohibited报文或者IPv6的icmp6-adm-prohibited报文. 只允许由该系统初始化的网络连接</p>
+<p><code>public</code> : 默认, 用以可以公开的部分; 你认为网络中其他的计算机不可信并且可能伤害你的计算机，只允许选中的服务通过</p>
+<p><code>external</code> : 用在路由器等启用伪装的外部网络。你认为网络中其他的计算机不可信并且可能伤害你的计算机，只允许选中的服务通过</p>
+<p><code>dmz</code> : 用以允许隔离区(dmz)中的电脑有限地被外界网络访问，只允许选中的服务通过</p>
+<p><code>work</code> : 用在工作网络。你信任网络中的大多数计算机不会影响你的计算机，只允许选中的服务通过</p>
+<p><code>home</code> : 用在家庭网络。你信任网络中的大多数计算机不会影响你的计算机，只允许选中的服务通过</p>
+<p><code>internal</code> : 用在内部网络。你信任网络中的大多数计算机不会影响你的计算机，只允许选中的服务通过</p>
+<p><code>trusted</code> : 允许所有网络连接，即使没有开放任何服务，那么使用此zone的流量照样通过(一路绿灯)</p>
+</blockquote>
+</li>
+<li><p><code>预定义的服务</code>  : 端口和/或协议入口的组合</p>
+</li>
+<li><p><code>端口和协议</code> :  定义了tcp或udp端口，端口可以是一个端口或者端口范围</p>
+</li>
+<li><p><code>ICMP阻塞</code> :  可以选择Internet控制报文协议的报文。这些报文可以是信息请求亦可是对信息请求或错误条件创建的响应</p>
+</li>
+<li><p><code>伪装</code> :  私有网络地址可以被映射到公开的IP地址</p>
+</li>
+<li><p><code>端口转发</code> :  端口可以映射到另一个端口以及/或者其他主机</p>
+</li>
+</ul>
+<h2 id="一般应用"><a href="#一般应用" class="headerlink" title="一般应用"></a>一般应用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 停止firewall</span></span><br><span class="line">systemctl stop firewalld.service             </span><br><span class="line"><span class="comment"># 禁止firewall开机启动</span></span><br><span class="line">systemctl <span class="built_in">disable</span> firewalld.service        </span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新规则</span></span><br><span class="line">firewall-cmd --reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看防火墙状态，是否是running</span></span><br><span class="line">firewall-cmd --state </span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新规则, 重启服务</span></span><br><span class="line">firewall-cmd --complete-reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用应急模式阻断所有网络连接，以防出现紧急状况</span></span><br><span class="line">firewall-cmd --panic-on</span><br><span class="line"></span><br><span class="line"><span class="comment"># 禁用应急模式</span></span><br><span class="line">firewall-cmd --panic-off</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询应急模式</span></span><br><span class="line">firewall-cmd --query-panic</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看规则，这个命令是和iptables的相同的</span></span><br><span class="line">iptables -L -n  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看帮助</span></span><br><span class="line">man firewall-cmd</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="作用域内应用"><a href="#作用域内应用" class="headerlink" title="作用域内应用"></a>作用域内应用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置默认区域</span></span><br><span class="line">firewall-cmd --<span class="built_in">set</span>-default-zone=&lt;zone&gt;  [--permanent]</span><br><span class="line"><span class="comment"># 输出区域全部启用的特性。如果省略区域，将显示默认区域的信息</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --list-all</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取默认区域的网络设置</span></span><br><span class="line">firewall-cmd --get-default-zone</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置public为默认的信任级别</span></span><br><span class="line">firewall-cmd --<span class="built_in">set</span>-default-zone=public </span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出全部启用的区域的特性</span></span><br><span class="line">firewall-cmd --list-all-zones</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出支持的zone</span></span><br><span class="line">firewall-cmd --get-zones [--permanent]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看已被激活的zone信息</span></span><br><span class="line">firewall-cmd --get-active-zones</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看指定级别的所有信息，譬如public</span></span><br><span class="line">firewall-cmd --zone=public --list-all</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="端口管理"><a href="#端口管理" class="headerlink" title="端口管理"></a>端口管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出指定作用域的端口(默认 `public` )</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --list-ports</span><br><span class="line"><span class="comment"># 查询作用域中是否启用了端口协议组合</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --query-port=&lt;port&gt;[-&lt;port&gt;]/&lt;protocol&gt;</span><br><span class="line"><span class="comment"># 在指定作用域增加端口协议组合</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --add-port=&lt;port&gt;[-&lt;port&gt;]/&lt;protocol&gt; [--permanent]</span><br><span class="line"><span class="comment"># 在指定作用域移除端口协议组合</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --remove-port=&lt;port&gt;[-&lt;port&gt;]/&lt;protocol&gt; [--permanent]</span><br><span class="line"></span><br><span class="line"><span class="comment">#----------------------------</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 列出dmz级别的被允许的进入端口</span></span><br><span class="line">firewall-cmd --zone=dmz --list-ports</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 允许tcp端口8080至dmz级别</span></span><br><span class="line">firewall-cmd --zone=dmz --add-port=8080/tcp</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 永久添加80端口</span></span><br><span class="line">firewall-cmd --add-port=80/tcp --permanent</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a>服务管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出支持的服务，在列表中的服务是放行的  (永久放行的)</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --get-services [--permanent]</span><br><span class="line"><span class="comment"># 启用区域中的一种服务,如果设定了超时时间, 服务将只启用特定秒数</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --add-service=&lt;service&gt; [--timeout=&lt;seconds&gt;] [--permanent]</span><br><span class="line"><span class="comment"># 移除服务</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --remove-service=&lt;service&gt; [--timeout=&lt;seconds&gt;] [--permanent]</span><br><span class="line"><span class="comment"># 查询区域中是否启用了特定服务</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --query-service=&lt;service&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 查看ftp服务是否支持，返回yes或者no</span></span><br><span class="line">firewall-cmd --query-service ftp    </span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 临时开放ftp服务</span></span><br><span class="line">firewall-cmd --add-service=ftp    </span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 永久开放ftp服务</span></span><br><span class="line">firewall-cmd --add-service=ftp --permanent</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 永久移除ftp服务</span></span><br><span class="line">firewall-cmd --remove-service=ftp --permanent</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 使区域中的ipp-client服务生效60秒</span></span><br><span class="line">firewall-cmd --zone=home --add-service=ipp-client --timeout=60</span><br></pre></td></tr></table></figure>
+
+<h3 id="IP伪装和端口转发"><a href="#IP伪装和端口转发" class="headerlink" title="IP伪装和端口转发"></a>IP伪装和端口转发</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询作用域的伪装状态</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --query-masquerade [--permanent]</span><br><span class="line"><span class="comment"># 启用作用域中的IP伪装功能</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --add-masquerade [--permanent]</span><br><span class="line"><span class="comment"># 禁止作用域中防火墙伪装IP</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --remove-masquerade [--permanent]</span><br><span class="line"><span class="comment"># 启用端口转发或映射</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --add-forward-port=port=&lt;port&gt;[-&lt;port&gt;]:proto=&lt;protocol&gt; &#123; :toport=&lt;port&gt;[-&lt;port&gt;] | :toaddr=&lt;address&gt; | :toport=&lt;port&gt;[-&lt;port&gt;]:toaddr=&lt;address&gt; &#125; [--permanent]</span><br><span class="line"><span class="comment"># 禁用端口转发或映射</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --remove-forward-port=port=&lt;port&gt;[-&lt;port&gt;]:proto=&lt;protocol&gt; &#123; :toport=&lt;port&gt;[-&lt;port&gt;] | :toaddr=&lt;address&gt; | :toport=&lt;port&gt;[-&lt;port&gt;]:toaddr=&lt;address&gt; &#125; [--permanent]</span><br><span class="line"><span class="comment"># 查询端口转发或映射</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --query-forward-port=port=&lt;port&gt;[-&lt;port&gt;]:proto=&lt;protocol&gt; &#123; :toport=&lt;port&gt;[-&lt;port&gt;] | :toaddr=&lt;address&gt; | :toport=&lt;port&gt;[-&lt;port&gt;]:toaddr=&lt;address&gt; &#125; [--permanent]</span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 转发 80 至 192.168.0.1 的 8080 端口</span></span><br><span class="line">firewall-cmd --add-forward-port=port=80:proto=tcp:toaddr=192.168.0.1:toport=8080 --permanent</span><br><span class="line"><span class="comment"># 将80端口的流量转发至8080</span></span><br><span class="line">firewall-cmd --add-forward-port=port=80:proto=tcp:toport=8080 --permanent</span><br><span class="line"><span class="comment"># 将80端口的流量转发至 192.168.0.1</span></span><br><span class="line">firewall-cmd --add-forward-port=port=80:proto=tcp:toaddr=192.168.0.1 --permanent</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="接口管理"><a href="#接口管理" class="headerlink" title="接口管理"></a>接口管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改接口所属区域</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --change-interface=&lt;interface&gt; [--permanent]</span><br><span class="line"><span class="comment"># 将接口增加到区域</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --add-interface=&lt;interface&gt; [--permanent]</span><br><span class="line"><span class="comment"># 从区域中删除一个接口</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --remove-interface=&lt;interface&gt; [--permanent]</span><br><span class="line"><span class="comment"># 查询区域中是否包含某接口</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --query-interface=&lt;interface&gt; [--permanent]</span><br><span class="line"></span><br><span class="line"><span class="comment"># -------------------------------------------</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 查看指定接口的zone信息</span></span><br><span class="line">firewall-cmd --get-zone-of-interface=eth0</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 查看指定级别的接口</span></span><br><span class="line">firewall-cmd --zone=public --list-interfaces</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 添加某接口至某信任等级，譬如添加eth0至public，再永久生效</span></span><br><span class="line">firewall-cmd --zone=public --add-interface=eth0 --permanent</span><br></pre></td></tr></table></figure>
+
+<h3 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 启用区域的ICMP阻塞功能</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --add-icmp-block=&lt;icmptype&gt; [--permanent]</span><br><span class="line"><span class="comment"># 禁止区域的ICMP阻塞功能</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --remove-icmp-block=&lt;icmptype&gt; [--permanent]</span><br><span class="line"><span class="comment"># 查询区域的ICMP阻塞功能</span></span><br><span class="line">firewall-cmd [--zone=&lt;zone&gt;] --query-icmp-block=&lt;icmptype&gt; [--permanent]</span><br><span class="line"><span class="comment"># 获取所有支持的ICMP类型</span></span><br><span class="line">firewall-cmd --get-icmptypes [--permanent]</span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 阻塞区域的响应应答报文</span></span><br><span class="line">firewall-cmd --zone=public --add-icmp-block=<span class="built_in">echo</span>-reply</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ----------------------------------</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># IP封禁</span></span><br><span class="line">firewall-cmd --permanent --add-rich-rule=<span class="string">"rule family='ipv4' source address='222.222.222.222' reject"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="直接选项"><a href="#直接选项" class="headerlink" title="直接选项"></a>直接选项</h2><blockquote>
+<p>直接选项主要用于使服务和应用程序能够增加规则。 规则不会被保存，在重新加载或者重启之后必须再次提交。传递的参数<code>&lt;args&gt;</code>与iptables, ip6tables以及ebtables一致</p>
+<p>选项<code>--direct</code>需要是直接选项的第一个参数</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># </span></span><br><span class="line">firewall-cmd --direct --passthrough &#123; ipv4 | ipv6 | eb &#125; &lt;args&gt;</span><br><span class="line"><span class="comment"># 为表&lt;table&gt;增加一个新链&lt;chain&gt;</span></span><br><span class="line">firewall-cmd --direct --add-chain &#123; ipv4 | ipv6 | eb &#125; &lt;table&gt; &lt;chain&gt;</span><br><span class="line"><span class="comment"># 从表&lt;table&gt;中删除链&lt;chain&gt;</span></span><br><span class="line">firewall-cmd --direct --remove-chain &#123; ipv4 | ipv6 | eb &#125; &lt;table&gt; &lt;chain&gt;</span><br><span class="line"><span class="comment"># 查询&lt;chain&gt;链是否存在与表&lt;table&gt;</span></span><br><span class="line">firewall-cmd --direct --query-chain &#123; ipv4 | ipv6 | eb &#125; &lt;table&gt; &lt;chain&gt;</span><br><span class="line"><span class="comment"># 获取用空格分隔的表&lt;table&gt;中链的列表</span></span><br><span class="line">firewall-cmd --direct --get-chains &#123; ipv4 | ipv6 | eb &#125; &lt;table&gt;</span><br><span class="line"><span class="comment"># 为表&lt;table&gt;增加一条参数为&lt;args&gt;的链&lt;chain&gt; ，优先级设定为&lt;priority&gt;</span></span><br><span class="line">firewall-cmd --direct --add-rule &#123; ipv4 | ipv6 | eb &#125; &lt;table&gt; &lt;chain&gt; &lt;priority&gt; &lt;args&gt;</span><br><span class="line"><span class="comment"># 从表&lt;table&gt;中删除带参数&lt;args&gt;的链&lt;chain&gt;</span></span><br><span class="line">firewall-cmd --direct --remove-rule &#123; ipv4 | ipv6 | eb &#125; &lt;table&gt; &lt;chain&gt; &lt;args&gt;</span><br><span class="line"><span class="comment"># 查询带参数&lt;args&gt;的链&lt;chain&gt;是否存在表&lt;table&gt;中. 如果是返回0,否则返回1</span></span><br><span class="line">firewall-cmd --direct --query-rule &#123; ipv4 | ipv6 | eb &#125; &lt;table&gt; &lt;chain&gt; &lt;args&gt;</span><br><span class="line"><span class="comment"># 获取表&lt;table&gt;中所有增加到链&lt;chain&gt;的规则，并用换行分隔</span></span><br><span class="line">firewall-cmd --direct --get-rules &#123; ipv4 | ipv6 | eb &#125; &lt;table&gt; &lt;chain&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
+    </div>
+</article>
+
+
+<p>
+    <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>firewall-cmd</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:37:49</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/command_firewall/" title="firewall-cmd">https://literaryloong.com/2019/11/09/command_firewall/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2020 literaryloong</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)" target="_blank" rel="noopener"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" target="_blank" rel="noopener" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+    .post .pjax article :not(pre) > code {
+        color: #24292e;
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+        background-color: rgba(27,31,35,.05);
+        border-radius: 3px;
+        font-size: 85%;
+        margin: 0;
+        padding: .2em .4em;
+    }
+    
+</style>
+
+
+
+
+
+
+
+</html>

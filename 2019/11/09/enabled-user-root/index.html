@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>启用root用户登录 | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="启用root用户登录 | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-enabled-user-root" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">启用root用户登录</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:40:30'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -427,7 +427,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#修改用户名"><span class="toc-text">修改用户名</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -443,7 +443,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <ol>
+<li>ubnunru 16  启用root用户登录</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 添加一行：greeter-show-manual-login=true</span></span><br><span class="line">&gt; sudo vi /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf</span><br><span class="line"><span class="comment">## greeter-show-manual-login=true  </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置root密码</span></span><br><span class="line">sudo passwd root</span><br><span class="line"></span><br><span class="line"><span class="comment">#  mesg n 替换成 tty -s &amp;&amp; mesg n</span></span><br><span class="line">sudo vi /root/.profile</span><br><span class="line"><span class="comment">#  mesg n   &gt;&gt;   tty -s &amp;&amp; mesg n</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>启用root 用户ssh远程</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line"><span class="comment">#PermitRootLogin without-password，添加 PermitRootLogin yes</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="修改用户名"><a href="#修改用户名" class="headerlink" title="修改用户名"></a>修改用户名</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># testerone 修改为 anxin</span></span><br><span class="line"> usermod -l anxin testerone</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改主目录</span></span><br><span class="line">usermod -d /home/anxin anxin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改用户组</span></span><br><span class="line">groupmod -n anxin testerone</span><br></pre></td></tr></table></figure>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +464,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>启用root用户登录</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:40:30</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/enabled-user-root/" title="启用root用户登录">https://literaryloong.com/2019/11/09/enabled-user-root/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

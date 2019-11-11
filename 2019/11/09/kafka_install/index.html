@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>安装 kafka | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="安装 kafka | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-kafka_install" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">安装 kafka</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:48:31'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -427,7 +427,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#利用Ambari-安装"><span class="toc-text">利用Ambari 安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#手动安装"><span class="toc-text">手动安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zookeeper"><span class="toc-text">zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kafka"><span class="toc-text">kafka</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -443,7 +443,74 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="利用Ambari-安装"><a href="#利用Ambari-安装" class="headerlink" title="利用Ambari 安装"></a>利用Ambari 安装</h1><p>kafka 目录 ： <code>/usr/hdp/current/kafka-broker</code></p>
+<h1 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h1><h3 id="zookeeper"><a href="#zookeeper" class="headerlink" title="zookeeper"></a>zookeeper</h3><blockquote>
+<p>kafka 依赖zookeeper 管理自身集群(Broker, Offset, Producer, Consumer等),所以要先安装zookeeper.</p>
+</blockquote>
+<ul>
+<li><p>下载 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.10/zookeeper-3.4.10.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li><p>解压</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf zookeeper-3.4.10.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li><p>配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> zookeeper-3.4.10/conf</span><br><span class="line">cp zoo_sample.cfg zoo.cfg</span><br><span class="line"><span class="comment"># 修改 dataDir(数据保存路径): 路径后面不能有注释</span></span><br><span class="line">dataDir=/home/<span class="built_in">test</span>/zookeeper-3.4.10/data</span><br><span class="line"><span class="comment"># 增加集群配置节点 hostname:port1:port2  port1 是node间的通信端口，</span></span><br><span class="line"><span class="comment"># port2是选举端口</span></span><br><span class="line">server.0=<span class="built_in">test</span>-n4:4001:4002</span><br><span class="line">server.1=<span class="built_in">test</span>-n5:4001:4002</span><br><span class="line">server.2=<span class="built_in">test</span>-n6:4001:4002</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>zookeeper 默认服务端口是：2181</p>
+</blockquote>
+<blockquote>
+<p>在上述配置的dataDir路径下创建一个 myid 文件</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每个节点都增加 myid 内容是节点编号</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'0'</span> &gt;&gt; myid</span><br><span class="line"><span class="comment"># echo '1' &gt;&gt; myid</span></span><br><span class="line"><span class="comment"># echo '2' &gt;&gt; myid</span></span><br></pre></td></tr></table></figure></li>
+<li><p>运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/zkServer.sh start</span><br><span class="line"><span class="comment"># 查看状态</span></span><br><span class="line">bin/zkServer.sh status</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">test@test-n3:~/services/zookeeper$ bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /home/test/services/zookeeper/bin/../conf/zoo.cfg</span><br><span class="line">Mode: leader</span><br><span class="line"></span><br><span class="line">test@test-n1:~/services/zookeeper$ bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /home/test/services/zookeeper/bin/../conf/zoo.cfg</span><br><span class="line">Mode: follower</span><br><span class="line"></span><br><span class="line">test@test-n3:~/services/zookeeper$ bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /home/test/services/zookeeper/bin/../conf/zoo.cfg</span><br><span class="line">Mode: leader</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>test-n3 是leader</p>
+</blockquote>
+</li>
+<li><p>停止</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/zkServer.sh stop</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h3 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a>kafka</h3><ul>
+<li><p>下载并解压</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirror.bit.edu.cn/apache/kafka/0.11.0.1/kafka_2.12-0.11.0.1.tgz</span><br><span class="line">tar -zxvf kafka_2.12-0.11.0.1.tgz</span><br></pre></td></tr></table></figure></li>
+<li><p>配置</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> kafka_2.12-0.11.0.1</span><br><span class="line">vi config/server.properties</span><br><span class="line"><span class="comment"># 修改</span></span><br><span class="line">broker.id=0 <span class="comment"># 每个节点不能相同 1, 2</span></span><br><span class="line">delete.topic.enable=<span class="literal">true</span></span><br><span class="line">listeners=PLAINTEXT://<span class="built_in">test</span>-n1:9092</span><br><span class="line">log.dirs=/home/anxin/kafka_2.12-0.11.0.1/kafka-logs</span><br><span class="line">zookeeper.connect=<span class="built_in">test</span>-n1:2181,<span class="built_in">test</span>-n2:2181,<span class="built_in">test</span>-n3:2181</span><br></pre></td></tr></table></figure></li>
+<li><p>启动</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-server-start.sh -daemon config/server.properties</span><br></pre></td></tr></table></figure></li>
+<li><p>查看topic状态</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    bin/kafka-topics.sh --describe --zookeeper test-n1:2181,test-n2:2181,test-n3:2181 </span><br><span class="line">--topic data</span><br></pre></td></tr></table></figure></li>
+<li><p>常用命令</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment"># 创建一个名为data的topic, 拥有1个分区，1个副本</span></span><br><span class="line">    ./kafka-topics.sh --create --zookeeper <span class="built_in">test</span>-n1:2181,<span class="built_in">test</span>-n2:2181,<span class="built_in">test</span>-n3:2181 --replication-factor 1 --partitions 1 --topic topic_test</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 查看所有topics</span></span><br><span class="line">./kafka-topics.sh --list --zookeeper <span class="built_in">test</span>-n1:2181</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 查看topic的状态</span></span><br><span class="line">    ./kafka-topics.sh --zookeeper <span class="built_in">test</span>-n1:2181,<span class="built_in">test</span>-n2:2181,<span class="built_in">test</span>-n3:2181 --describe  --topic topic_test</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 控制台生产数据 broker ambari 安装的使用6667端口 ，自己手动安装的使用 9092 端口</span></span><br><span class="line">    ./kafka-console-producer.sh --broker-list <span class="built_in">test</span>-n1:6667 --topic topic_test</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 控制台消费</span></span><br><span class="line">    ./kafka-console-consumer.sh --bootstrap-server <span class="built_in">test</span>-n1:6667 --topic topic_test --from-beginning</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 查看topic某分区偏移量最大（小）值: time为-1时表示最大值,time为-2时表示最小值</span></span><br><span class="line">    ./kafka-run-class.sh kafka.tools.GetOffsetShell --topic test_data --time -1 --broker-list <span class="built_in">test</span>-n1:6667 --partitions 0</span><br><span class="line">    <span class="comment"># 查看topic 偏移量最大（小）值: time为-1时表示最大值,time为-2时表示最小值</span></span><br><span class="line">    ./kafka-run-class.sh kafka.tools.GetOffsetShell --topic test_data --time -1 --broker-list <span class="built_in">test</span>-n1:6667</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 修改 topic test_data 分区 10 (只能增加不能减少)</span></span><br><span class="line">    ./kafka-topics.sh --zookeeper <span class="built_in">test</span>-n1:2181 --alter --topic test_data --partitions 10</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 查看 consumer group 列表</span></span><br><span class="line">    ./kafka-consumer-groups.sh --new-consumer --bootstrap-server <span class="built_in">test</span>-n1:6667 --list</span><br><span class="line">    <span class="comment"># ./kafka-consumer-groups.sh --zookeeper test-n1:2181 --list</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 查看特定consumer group 详情</span></span><br><span class="line">    ./kafka-consumer-groups.sh --new-consumer --bootstrap-server <span class="built_in">test</span>-n1:6667 --group <span class="built_in">test</span> --describe</span><br><span class="line">    <span class="comment"># /kafka-consumer-groups.sh --zookeeper test-n1:2181 --group console-consumer-11967 --describe</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<ul>
+<li><p>删除 topic</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除topic</span></span><br><span class="line">./kafka-topics.sh --delete --zookeeper <span class="built_in">test</span>-n1:2181 --topic topic_test</span><br><span class="line">./kafka-run-class.sh kafka.admin.DeleteTopicCommand --zookeeper <span class="built_in">test</span>-n1:2181 --topic topic_test</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果 `delete.topic.enable=true` 则直接删除，否则topic仅仅被标记为删除</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从zk中删除topic ; 删除完成后重启zookeeper和kafka服务；</span></span><br><span class="line">./zkCli.sh</span><br><span class="line">ls /brokers/topics</span><br><span class="line">rm /brokers/topics/topic_test</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+</ul>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +521,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>安装 kafka</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:48:31</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/kafka_install/" title="安装 kafka">https://literaryloong.com/2019/11/09/kafka_install/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

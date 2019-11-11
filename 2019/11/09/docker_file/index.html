@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>Dockerfile | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="Dockerfile | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-docker_file" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">Dockerfile</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:39:12'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -443,7 +443,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">FROM frolvlad/alpine-glibc:alpine-3.5</span><br><span class="line"></span><br><span class="line">MAINTAINER xxx <span class="string">"xxx@xxx.com"</span></span><br><span class="line"></span><br><span class="line">ADD recv /usr/<span class="built_in">local</span>/bin</span><br><span class="line">RUN chmod +x /usr/<span class="built_in">local</span>/bin/recv</span><br><span class="line"></span><br><span class="line">EXPOSE 7002</span><br><span class="line"></span><br><span class="line">CMD [<span class="string">"-addr"</span>,<span class="string">":7002"</span>,<span class="string">"-brokers"</span>,<span class="string">"192.168.0.201:6667,192.168.0.202:6667,192.168.0.211:6667,192.168.0.212:6667,192.168.0.213:6667,192.168.0.214:6667"</span>]</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [<span class="string">"recv"</span>]</span><br></pre></td></tr></table></figure>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +455,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Dockerfile</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:39:12</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/docker_file/" title="Dockerfile">https://literaryloong.com/2019/11/09/docker_file/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

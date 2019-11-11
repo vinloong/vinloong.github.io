@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>Etcd 架构与实现解析 | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="Etcd 架构与实现解析 | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-etcd" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">Etcd 架构与实现解析</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:46:50'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -427,7 +427,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Etcd-架构与实现解析"><span class="toc-text">Etcd 架构与实现解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么需要-Etcd"><span class="toc-text">为什么需要 Etcd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Etcd-提供什么能力"><span class="toc-text">Etcd 提供什么能力</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -443,7 +443,30 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="Etcd-架构与实现解析"><a href="#Etcd-架构与实现解析" class="headerlink" title="Etcd 架构与实现解析"></a>Etcd 架构与实现解析</h1><p><strong>Etcd</strong> 按照官方介绍</p>
+<blockquote>
+<p>Etcd is a distributed, consistent <strong>key-value</strong> store for <strong>shared configuration</strong> and <strong>service discovery</strong></p>
+</blockquote>
+<p>是一个分布式的，一致的 key-value 存储，主要用途是共享配置和服务发现。</p>
+<p>Etcd 已经在很多分布式系统中得到广泛的使用</p>
+<blockquote>
+<p>本文主要解答以下问题 :</p>
+</blockquote>
+<ol>
+<li>Etcd是如何实现一致性的？</li>
+<li>Etcd的存储是如何实现的？</li>
+<li>Etcd的watch机制是如何实现的？</li>
+<li>Etcd的key过期机制是如何实现的？</li>
+</ol>
+<h3 id="为什么需要-Etcd"><a href="#为什么需要-Etcd" class="headerlink" title="为什么需要 Etcd"></a>为什么需要 Etcd</h3><p>所有的分布式系统，都面临的一个问题是多个节点之间的数据共享问题(比如谁是 leader， 有哪些成员，依赖任务之间的顺序协调等)，所以分布式系统要么自己实现一个可靠的共享存储来同步信息（比如 Elasticsearch ），要么依赖一个可靠的共享存储服务，而 Etcd 就是这样一个服务。</p>
+<h3 id="Etcd-提供什么能力"><a href="#Etcd-提供什么能力" class="headerlink" title="Etcd 提供什么能力"></a>Etcd 提供什么能力</h3><p>Etcd 主要提供以下能力:</p>
+<ol>
+<li>提供存储以及获取数据的接口，它通过协议保证 Etcd 集群中的多个节点数据的强一致性。用于存储元信息以及共享配置。</li>
+<li>提供监听机制，客户端可以监听某个key或者某些key的变更（v2和v3的机制不同，参看后面文章）。用于监听和推送变更。</li>
+<li>提供key的过期以及续约机制，客户端通过定时刷新来实现续约（v2和v3的实现机制也不一样）。用于集群监控以及服务注册发现。</li>
+<li>提供原子的CAS（Compare-and-Swap）和 CAD（Compare-and-Delete）支持（v2通过接口参数实现，v3通过批量事务实现）。用于分布式锁以及leader选举。</li>
+</ol>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +477,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Etcd 架构与实现解析</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:46:50</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/etcd/" title="Etcd 架构与实现解析">https://literaryloong.com/2019/11/09/etcd/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

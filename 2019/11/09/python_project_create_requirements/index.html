@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>python依赖输出到文件 | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="python依赖输出到文件 | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-python_project_create_requirements" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">python依赖输出到文件</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:51:09'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -427,7 +427,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-pip-freeze"><span class="toc-text">1 pip freeze</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-pipreqs-path-to-project"><span class="toc-text">2  pipreqs/path/to/project</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-install"><span class="toc-text">3 install</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -443,7 +443,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="1-pip-freeze"><a href="#1-pip-freeze" class="headerlink" title="1 pip freeze"></a>1 <code>pip freeze</code></h1><blockquote>
+<p>pip freeze 会将环境中所有的包(包含当前项目没有引用的)都会添加到 <code>requirements.txt</code> 中</p>
+<p>只推荐在使用虚拟环境(virtualenv)的项目中使用</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果你在项目中使用了虚拟环境---- venv</span></span><br><span class="line">pip freeze &gt; requirements.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="2-pipreqs-path-to-project"><a href="#2-pipreqs-path-to-project" class="headerlink" title="2  pipreqs/path/to/project"></a>2  <code>pipreqs/path/to/project</code></h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install pipreqs</span><br><span class="line">pipreqs /path/to/project</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="3-install"><a href="#3-install" class="headerlink" title="3 install"></a>3 install</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +468,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>python依赖输出到文件</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:51:09</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/python_project_create_requirements/" title="python依赖输出到文件">https://literaryloong.com/2019/11/09/python_project_create_requirements/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

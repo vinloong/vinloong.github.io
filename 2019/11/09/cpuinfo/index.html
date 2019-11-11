@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>查看CPU信息 | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="查看CPU信息 | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-cpuinfo" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">查看CPU信息</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:38:28'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -443,7 +443,55 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>判断有几个物理CPU/几核/几线程</p>
+<p>判断依据：</p>
+<p>1.具有相同core id的cpu是同一个core的超线程</p>
+<p>2.具有相同physical id的cpu是同一颗cpu封装的线程或者cores</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 逻辑CPU个数</span></span><br><span class="line">cat /proc/cpuinfo | grep <span class="string">"processor"</span> | wc -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 物理CPU个数</span></span><br><span class="line">cat /proc/cpuinfo | grep <span class="string">"physical id"</span> | sort -u | wc -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每个物理CPU中Core的个数</span></span><br><span class="line">cat /proc/cpuinfo | grep <span class="string">"cpu cores"</span> | uniq | awk -F: <span class="string">'&#123;print $2&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看core id的数量,即为所有物理CPU上的core的个数</span></span><br><span class="line">cat /proc/cpuinfo | grep <span class="string">"core id"</span> | uniq |  wc -l</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>/proc/cpuinfo 文件包含系统上每个处理器的数据段落。/proc/cpuinfo 描述中有 6 个条目适用于多内核和超线程（HT）技术检查：processor, vendor id, physical id, siblings, core id 和 cpu cores。</p>
+</blockquote>
+<blockquote>
+<p>processor 条目包括这一逻辑处理器的唯一标识符。</p>
+</blockquote>
+<blockquote>
+<p>physical id 条目包括每个物理封装的唯一标识符。</p>
+</blockquote>
+<blockquote>
+<p>core id 条目保存每个内核的唯一标识符。</p>
+</blockquote>
+<blockquote>
+<p>siblings 条目列出了位于相同物理封装中的逻辑处理器的数量。</p>
+</blockquote>
+<blockquote>
+<p>cpu cores 条目包含位于相同物理封装中的内核数量。</p>
+</blockquote>
+<blockquote>
+<p>如果处理器为英特尔处理器，则 vendor id 条目中的字符串是 GenuineIntel。</p>
+</blockquote>
+<blockquote>
+<p>1.拥有相同 physical id 的所有逻辑处理器共享同一个物理插座。每个 physical id 代表一个唯一的物理封装。</p>
+</blockquote>
+<blockquote>
+<p>2.Siblings 表示位于这一物理封装上的逻辑处理器的数量。它们可能支持也可能不支持超线程（HT）技术。</p>
+</blockquote>
+<blockquote>
+<p>3.每个 core id 均代表一个唯一的处理器内核。所有带有相同 core id 的逻辑处理器均位于同一个处理器内核上。</p>
+</blockquote>
+<blockquote>
+<p>4.如果有一个以上逻辑处理器拥有相同的 core id 和 physical id，则说明系统支持超线程（HT）技术。</p>
+</blockquote>
+<blockquote>
+<p>5.如果有两个或两个以上的逻辑处理器拥有相同的 physical id，但是 core id 不同，则说明这是一个多内核处理器。cpu cores 条目也可以表示是否支持多内核。</p>
+</blockquote>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +502,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>查看CPU信息</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:38:28</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/cpuinfo/" title="查看CPU信息">https://literaryloong.com/2019/11/09/cpuinfo/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

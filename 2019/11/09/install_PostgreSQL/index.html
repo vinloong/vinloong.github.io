@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>安装 Postgres | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="安装 Postgres | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-install_PostgreSQL" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">安装 Postgres</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:47:37'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -427,7 +427,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装-Postgres"><span class="toc-text">安装 Postgres</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -443,7 +443,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="安装-Postgres"><a href="#安装-Postgres" class="headerlink" title="安装 Postgres"></a>安装 Postgres</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新建 文件 /etc/apt/sources.list.d/pgdg.list 并添加行: </span></span><br><span class="line">deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line">sudo apt-get install postgresql-10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装完毕后自动创建了系统和数据库的postgres用户</span></span><br><span class="line"><span class="comment"># 初始默认数据目录/var/lib/postgresql/9.6/main.  </span></span><br><span class="line"><span class="comment"># 配置文件目录/etc/postgresql/9.6/main.</span></span><br><span class="line"></span><br><span class="line">sudo su     <span class="comment"># 切到 root 用户</span></span><br><span class="line">su postgres <span class="comment"># 切到 postgres 用户</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置密码</span></span><br><span class="line">psql</span><br><span class="line"> \password</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">psql</span><br><span class="line">&gt;Postgres =<span class="comment"># create user "FashionAdmin" with password 'Fas123_';</span></span><br><span class="line">&gt;Postgres =<span class="comment"># create database "AnxinCloud" owner "FashionAdmin";</span></span><br><span class="line">&gt;Postgres =<span class="comment"># GRANT ALL PRIVILEGES ON DATABASE exampledb TO dbuser;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 常用命令</span></span><br><span class="line">\c <span class="comment"># 切换数据库</span></span><br><span class="line">\l <span class="comment"># 列出数据库</span></span><br><span class="line"></span><br><span class="line">DROP DATABASE dataBaseName; <span class="comment"># 删除数据库</span></span><br><span class="line">drop role userRole; <span class="comment"># 删除用户</span></span><br><span class="line"></span><br><span class="line">grant role1 to role2; <span class="comment"># 把用户角色role1 对当前数据库的 权限给用户角色 role2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接数据库 </span></span><br><span class="line">psql -U dbuser -d exampledb -h 127.0.0.1 -p 5432</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份配置文件</span></span><br><span class="line">cp postgresql.conf postgresql.conf.bak</span><br><span class="line">cp pg_hba.conf pg_hba.conf.bak</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 postgresql.conf</span></span><br><span class="line">vi postgresql.conf</span><br><span class="line"><span class="comment"># listen_addresses = '*'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 pg_hba.conf</span></span><br><span class="line">vi pg_hba.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># Database administrative login by Unix domain socket</span></span><br><span class="line"><span class="built_in">local</span>   all             postgres                                md5</span><br><span class="line"><span class="comment"># TYPE  DATABASE        USER            ADDRESS                 METHOD</span></span><br><span class="line"><span class="comment"># "local" is for Unix domain socket connections only</span></span><br><span class="line"><span class="built_in">local</span>   all             all                                     md5</span><br><span class="line"><span class="comment"># IPv4 local connections:</span></span><br><span class="line">host   all   all   0.0.0.0/0   md5</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service postgresql restart  <span class="comment"># 重启服务</span></span><br><span class="line">service postgresql stop     <span class="comment"># 停止服务</span></span><br><span class="line">service postgresql start    <span class="comment"># 启动服务</span></span><br></pre></td></tr></table></figure>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +466,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>安装 Postgres</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:47:37</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/install_PostgreSQL/" title="安装 Postgres">https://literaryloong.com/2019/11/09/install_PostgreSQL/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

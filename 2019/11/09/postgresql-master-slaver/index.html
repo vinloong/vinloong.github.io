@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>postgresql 主从设置 | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="postgresql 主从设置 | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-postgresql-master-slaver" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">postgresql 主从设置</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:50:33'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -427,7 +427,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#准备工作"><span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置master"><span class="toc-text">配置master</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置-slaver"><span class="toc-text">配置 slaver</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#复制数据从MASTER复制到SLAVE"><span class="toc-text">复制数据从MASTER复制到SLAVE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -443,7 +443,148 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><hr>
+<table>
+<thead>
+<tr>
+<th>hostname</th>
+<th>ip</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>anxinyun-m1</td>
+<td>192.168.0.201</td>
+<td>pg-master</td>
+</tr>
+<tr>
+<td>anxinyun-m2</td>
+<td>192.168.0.206</td>
+<td>pg-slaver</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><a href="install_PostgreSQL.md">安装 postgresql</a></p>
+</blockquote>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="配置master"><a href="#配置master" class="headerlink" title="配置master"></a>配置master</h2><blockquote>
+<p>修改 <strong>postgresql.conf</strong></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/postgresql/9.6/main/postgresql.conf</span><br><span class="line">&gt; </span><br><span class="line">&gt; listen_addresses = <span class="string">'localhost,192.168.0.201'</span></span><br><span class="line">&gt; wal_level = <span class="string">'hot_standby'</span></span><br><span class="line">&gt; <span class="comment"># 同步级别，改为 本地同步</span></span><br><span class="line">&gt; synchronous_commit = <span class="built_in">local</span></span><br><span class="line">&gt; <span class="comment"># 启用归档模式,修改archive_command选项</span></span><br><span class="line">&gt; archive_mode = on</span><br><span class="line">&gt; archive_command = <span class="string">'cp %p /var/lib/postgresql/9.6/main/archive/%f'</span></span><br><span class="line">&gt; <span class="comment"># 我们仅用2个服务器，主服务器和从服务器 </span></span><br><span class="line">&gt; max_wal_senders = 2</span><br><span class="line">&gt; wal_keep_segments = 10</span><br><span class="line">&gt; <span class="comment"># </span></span><br><span class="line">&gt; synchronous_standby_names = <span class="string">'pgslave001'</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>保存退出</p>
+</blockquote>
+<blockquote>
+<p>编辑 修改 pg_hba.conf</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vi pg_hba.conf</span><br><span class="line">&gt;</span><br><span class="line">&gt; <span class="comment"># Localhost</span></span><br><span class="line">&gt; st    replication     replica          127.0.0.1/32            md5</span><br><span class="line">&gt; <span class="comment"># PostgreSQL Master IP address</span></span><br><span class="line">&gt; host    replication     replica          192.168.0.201/24            md5</span><br><span class="line">&gt; <span class="comment"># PostgreSQL SLave IP address</span></span><br><span class="line">&gt; host    replication     replica          192.168.0.206/24            md5</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>在postgresql.conf文件中，归档模式已启用，因此我们需要为归档创建一个新目录。 创建一个新的归档目录，更改权限并将所有者更改为postgres用户</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">su - postgres</span><br><span class="line">mkdir -p /var/lib/postgresql/9.6/main/archive/</span><br><span class="line">chmod 700 /var/lib/postgresql/9.6/main/archive/</span><br><span class="line">chown -R postgres:postgres /var/lib/postgresql/9.6/main/archive/</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>保存退出</p>
+</blockquote>
+<blockquote>
+<p>重启 postgresql 服务 , 查看服务是否启动成功</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart postgresql</span><br><span class="line"></span><br><span class="line">netstat -plntu</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">ps -ef | grep postgres</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>创建一个用户用于复制, 用户名：’ <strong>replica</strong> ‘，密码:’ <strong>aqwe123 @</strong> ‘</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">su - postgres</span><br><span class="line">psql</span><br><span class="line">postgres=<span class="comment"># CREATE USER replica REPLICATION LOGIN ENCRYPTED PASSWORD 'aqwe123@';</span></span><br><span class="line"><span class="comment"># 查看用户</span></span><br><span class="line">postgres=<span class="comment"># \du</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="配置-slaver"><a href="#配置-slaver" class="headerlink" title="配置 slaver"></a>配置 slaver</h2><blockquote>
+<p>停止 postgresql 服务</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop postgresql</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>编辑 <strong>/etc/postgresql/9.6/main/postgresql.conf</strong></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/postgresql/9.6/main/postgresql.conf</span><br><span class="line">&gt; </span><br><span class="line">&gt; listen_addresses = <span class="string">'localhost,192.168.0.206'</span></span><br><span class="line">&gt; wal_level = hot_standby</span><br><span class="line">&gt; <span class="comment"># 同步级别，改为 本地同步</span></span><br><span class="line">&gt; synchronous_commit = <span class="built_in">local</span></span><br><span class="line">&gt; <span class="comment"># 我们仅用2个服务器，主服务器和从服务器 </span></span><br><span class="line">&gt; max_wal_senders = 2</span><br><span class="line">&gt; wal_keep_segments = 10</span><br><span class="line">&gt; <span class="comment"># </span></span><br><span class="line">&gt; synchronous_standby_names = <span class="string">'pgslave001'</span></span><br><span class="line">&gt; 启用从服务器的hot_standby </span><br><span class="line">&gt; hot_standby = on</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>保存并退出</p>
+</blockquote>
+<h2 id="复制数据从MASTER复制到SLAVE"><a href="#复制数据从MASTER复制到SLAVE" class="headerlink" title="复制数据从MASTER复制到SLAVE"></a>复制数据从MASTER复制到SLAVE</h2><blockquote>
+<p>登录SLAVE服务器并访问postgres用户</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - postgres</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>转到postgres数据目录’ <strong>main</strong> ‘，并通过重命名目录名来备份</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> 9.6/</span><br><span class="line">mv main main-bekup</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用<strong>pg_basebackup</strong>命令将主目录从MASTER服务器复制到SLAVE服务器</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pg_basebackup -h 10.0.15.10 -U replica -D /var/lib/postgresql/9.6/main -P --xlog</span><br><span class="line">Password:</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>数据传输完成后，转到主数据目录并创建一个新的<strong>recovery.conf</strong>文件</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/postgresql/9.6/main/</span><br><span class="line">vim recovery.conf</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>复制粘贴以下配置</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">standby_mode = &apos;on&apos;</span><br><span class="line">primary_conninfo = &apos;host=192.168.0.201 port=5432 user=replica password=aqwe123@ application_name=pgslave001&apos;</span><br><span class="line">restore_command = &apos;cp /var/lib/postgresql/9.6/main/archive/%f %p&apos;</span><br><span class="line">trigger_file = &apos;/tmp/postgresql.trigger.5432&apos;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>保存退出</p>
+</blockquote>
+<blockquote>
+<p>修改权限</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 recovery.conf</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启动 slaver  postgresql 服务, 查看服务</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl start postgresql</span><br><span class="line">netstat -plntu</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">ps -ef | grep postgres</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
+<p>登录 master postgres 用户</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su - postgres</span><br><span class="line">psql -c <span class="string">"select application_name, state, sync_priority, sync_state from pg_stat_replication;"</span></span><br><span class="line">psql -x -c <span class="string">"select * from pg_stat_replication;"</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/pg_02.png" alt=""></p>
+<blockquote>
+<p>再MASTER服务器创建一个新表<strong>replica_test</strong>  并插入测试数据</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">su - postgres</span><br><span class="line">psql</span><br><span class="line"></span><br><span class="line">CREATE TABLE replica_test (hakase varchar(100));</span><br><span class="line">INSERT INTO replica_test VALUES (<span class="string">'howtoing.com'</span>);</span><br><span class="line">INSERT INTO replica_test VALUES (<span class="string">'This is from Master'</span>);</span><br><span class="line">INSERT INTO replica_test VALUES (<span class="string">'pg replication by hakase-labs'</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/pg_01.png" alt=""></p>
+<blockquote>
+<p>登录 slaver 查询  ‘ <strong>replica_test</strong> ‘表中的数据</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">su - postgres</span><br><span class="line">psql</span><br><span class="line"></span><br><span class="line">select * from replica_test;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/pg_03.png" alt=""></p>
+<blockquote>
+<p><strong>附加测试</strong></p>
+</blockquote>
+<blockquote>
+<p>测试在SLAVE服务器上写插入语句</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO replica_test VALUES (<span class="string">'this is SLAVE'</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>你将在SLAVE服务器上收到有关“ <strong>无法执行INSERT</strong> ”查询的错误消息</p>
+</blockquote>
+<blockquote>
+<p>至此，在Ubuntu 16.04上安装和配置PostgreSQL 9.6与主从复制已经完成</p>
+</blockquote>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +595,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>postgresql 主从设置</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:50:33</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/postgresql-master-slaver/" title="postgresql 主从设置">https://literaryloong.com/2019/11/09/postgresql-master-slaver/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

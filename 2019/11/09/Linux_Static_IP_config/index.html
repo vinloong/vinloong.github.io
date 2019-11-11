@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>Linux 静态IP配置 | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="Linux 静态IP配置 | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-Linux_Static_IP_config" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">Linux 静态IP配置</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:27:18'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -427,7 +427,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ubuntu-16-04LTS-静态IP设置"><span class="toc-text">Ubuntu 16.04LTS 静态IP设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ubuntu-18-04LTS-静态IP设置"><span class="toc-text">Ubuntu 18.04LTS 静态IP设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法1："><span class="toc-text">方法1：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法2："><span class="toc-text">方法2：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法3"><span class="toc-text">方法3</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CentOS-静态IP设置"><span class="toc-text">CentOS 静态IP设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#补充"><span class="toc-text">补充</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -443,7 +443,79 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="Ubuntu-16-04LTS-静态IP设置"><a href="#Ubuntu-16-04LTS-静态IP设置" class="headerlink" title="Ubuntu 16.04LTS 静态IP设置"></a>Ubuntu 16.04LTS 静态IP设置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi  /etc/network/interfaces</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">auto eno4</span><br><span class="line">iface eno4 inet static</span><br><span class="line">address 10.8.30.176</span><br><span class="line">netmask 255.255.255.0</span><br><span class="line">gateway 10.8.30.1</span><br><span class="line">dns-nameserver 114.114.114.114</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/networking restart</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="Ubuntu-18-04LTS-静态IP设置"><a href="#Ubuntu-18-04LTS-静态IP设置" class="headerlink" title="Ubuntu 18.04LTS 静态IP设置"></a>Ubuntu 18.04LTS 静态IP设置</h1><h2 id="方法1："><a href="#方法1：" class="headerlink" title="方法1："></a>方法1：</h2><blockquote>
+<p>原来 <code>Ubuntu 16</code> 设置 <code>/etc/network/interfaces</code><br>的方法还可以用，只是设置的dns没有用<br>设置 dns 可以编辑 <code>/etc/systemd/resolved.conf</code> 文件</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/systemd/resolved.conf</span><br><span class="line"></span><br><span class="line">[Resolve]</span><br><span class="line">DNS=114.114.114.114</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法2："><a href="#方法2：" class="headerlink" title="方法2："></a>方法2：</h2><blockquote>
+<p>编辑 <code>/etc/netplan/</code>下的yaml文件<br>这里文件名是 <code>01-network-manager-all.yaml</code></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/netplan/01-network-manager-all.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注释掉 renderer:NetworkManager</span></span><br><span class="line">network:</span><br><span class="line">	version: 2</span><br><span class="line">	ethernets: </span><br><span class="line">		<span class="comment"># 网络名</span></span><br><span class="line">		enp0s3:</span><br><span class="line">			<span class="comment"># 一个ip数组，用 ‘,’ 隔开</span></span><br><span class="line">			addresses: [192.168.0.116/24]</span><br><span class="line">			<span class="comment"># 使用dhcp 动态获取ip: true/no</span></span><br><span class="line">			dhcp4: no</span><br><span class="line">			<span class="comment"># ipv4 网关</span></span><br><span class="line">			gateway4: 192.168.0.1</span><br><span class="line">			<span class="comment"># dns</span></span><br><span class="line">			nameservers: </span><br><span class="line">				addresses: [114.114.114.114]</span><br><span class="line">				search: [localdomain]</span><br><span class="line">			optional: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 立即生效</span></span><br><span class="line">sudo netplan apply</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong><em>以上方法试了 设置DNS 均不能使 /etc/resolv.conf生效. 重启又恢复到默认。</em></strong></p>
+</blockquote>
+<h2 id="方法3"><a href="#方法3" class="headerlink" title="方法3"></a>方法3</h2><blockquote>
+<p>安装 resolvconf 服务</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install resolvconf</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改 /etc/resolvconf/resolv.conf.d/head</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/resolvconf/resolv.conf.d/head</span><br><span class="line"><span class="comment"># 增加</span></span><br><span class="line">nameserver 223.5.5.5</span><br><span class="line">nameserver 223.6.6.6</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>保存退出，执行</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resolvconf -u</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查看 /etc/resolv.conf, 重启再看</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/resolv.conf</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="CentOS-静态IP设置"><a href="#CentOS-静态IP设置" class="headerlink" title="CentOS 静态IP设置"></a>CentOS 静态IP设置</h1><blockquote>
+<p>相关配置文件在 <code>/etc/sysconfig/network-scripts</code> 下</p>
+<p>  修改 ifcfg-enp0s3 文件</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-enp0s3</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>默认配置</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=dhcp</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=enp0s3</span><br><span class="line">UUID=64a31304-95d8-4ab6-961e-8d5db92f8cc0</span><br><span class="line">DEVICE=enp0s3</span><br><span class="line">ONBOOT=no</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改为</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line"><span class="comment">#BOOTPROTO=dhcp</span></span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=enp0s3</span><br><span class="line">UUID=64a31304-95d8-4ab6-961e-8d5db92f8cc0</span><br><span class="line">DEVICE=enp0s3</span><br><span class="line"><span class="comment">#ONBOOT=no</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#static assignment</span></span><br><span class="line">NM_CONTROLLED=no</span><br><span class="line">ONBOOT=yes</span><br><span class="line">BOOTPROTO=static</span><br><span class="line">IPADDR=192.168.0.116</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.0.1</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>修改/etc/sysconfig/network</p>
+</blockquote>
+<blockquote>
+<p>默认为空</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Created by anaconda</span></span><br><span class="line"></span><br><span class="line">NETWORKING=yes</span><br><span class="line">GATEWAY=192.168.0.1</span><br><span class="line">DNS1=114.114.114.114</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启服务</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>
+
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看网关</span></span><br><span class="line">netstat -rn </span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">route -n</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置默认网关</span></span><br><span class="line">route add default gw 10.8.30.1</span><br></pre></td></tr></table></figure>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +526,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Linux 静态IP配置</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:27:18</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/Linux_Static_IP_config/" title="Linux 静态IP配置">https://literaryloong.com/2019/11/09/Linux_Static_IP_config/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

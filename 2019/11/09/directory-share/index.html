@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>共享目录设置 | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="共享目录设置 | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-directory-share" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">共享目录设置</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:38:49'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -427,7 +427,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建共享目录"><span class="toc-text">创建共享目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#本机测试"><span class="toc-text">本机测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu-下安装削微有些区别"><span class="toc-text">Ubuntu 下安装削微有些区别</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -443,7 +443,68 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre>yum -y install samba samba-client</pre>
+
+<h2 id="创建共享目录"><a href="#创建共享目录" class="headerlink" title="创建共享目录"></a>创建共享目录</h2><pre>
+mkdir /versions
+chmod 777 /versions
+</pre>
+
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p><strong>进入samba配置目录</strong></p>
+<pre> cd /etc/samba/</pre>
+<p><strong>备份smb.conf</strong></p>
+<pre>mv smb.conf smb.conf.origin</pre>
+
+<p><strong>新建smb.conf</strong></p>
+<pre>vim smb.conf</pre>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">        workgroup = WORKGROUP</span><br><span class="line">        security = user</span><br><span class="line">        map to guest =Bad User</span><br><span class="line">        passdb backend = tdbsam</span><br><span class="line">        printing = cups</span><br><span class="line">        printcap name = cups</span><br><span class="line">        load printers = yes</span><br><span class="line">        cups options = raw</span><br><span class="line"></span><br><span class="line">[versions]</span><br><span class="line">        comment = versions</span><br><span class="line">        path = /versions</span><br><span class="line">        public = yes</span><br><span class="line">        writable = yes</span><br><span class="line">        browseable = yes</span><br><span class="line">        guest ok   = yes</span><br><span class="line">        create mask = 0644</span><br><span class="line">        directory mask = 0755</span><br><span class="line"></span><br><span class="line">[homes]</span><br><span class="line">        comment = Home Directories</span><br><span class="line">        valid users = %S, %D%w%S</span><br><span class="line">        browseable = No</span><br><span class="line">        read only = No</span><br><span class="line">        inherit acls = Yes</span><br><span class="line"></span><br><span class="line">[printers]</span><br><span class="line">        comment = All Printers</span><br><span class="line">        path = /var/tmp</span><br><span class="line">        printable = Yes</span><br><span class="line">        create mask = 0600</span><br><span class="line">        browseable = No</span><br><span class="line"></span><br><span class="line">[print$]</span><br><span class="line">        comment = Printer Drivers</span><br><span class="line">        path = /var/lib/samba/drivers</span><br><span class="line">        write list = root</span><br><span class="line">        create mask = 0664</span><br><span class="line">        directory mask = 0775</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>注释：</strong><br>workgroup 项应与 Windows 主机保持一致，这里是WORKGROUP</p>
+<p>security、map to guest项设置为允许匿名用户访问</p>
+<p>再下面有两个section，实际为两个目录，section名就是目录名（映射到Windows上可以看见）。</p>
+<p>第一个目录名是versions，匿名、公开、可写</p>
+<p>第二个目录吗是WebDev，限定ted用户访问</p>
+<p>默认文件属性644/755（不然的话，Windows上在这个目录下新建的文件会有“可执行”属性）</p>
+<p><strong>创建用户</strong></p>
+<pre>
+groupadd co3                             # 创建用户组
+useradd ted -g co3 -s /sbin/nologin         # 增加用户不能用于登录
+smbpasswd -a ted                         # 设置密码 1
+</pre>
+
+<p><strong>启动Samba服务，设置开机启动</strong></p>
+<pre>
+systemctl start smb
+systemctl enable smb
+</pre>
+
+<p><strong>开放端口</strong></p>
+<pre>
+firewall-cmd --permanent --add-port=139/tcp
+firewall-cmd --permanent --add-port=445/tcp
+systemctl restart firewalld
+</pre>
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="本机测试"><a href="#本机测试" class="headerlink" title="本机测试"></a>本机测试</h3><p>可以使用testparm测试samba配置是否正确</p>
+<pre>testparm </pre>
+<p>root用户的话，不用密码可直接查看samba服务器情况</p>
+<pre>smbclient -L localhost </pre>
+
+
+<h2 id="Ubuntu-下安装削微有些区别"><a href="#Ubuntu-下安装削微有些区别" class="headerlink" title="Ubuntu 下安装削微有些区别"></a>Ubuntu 下安装削微有些区别</h2><pre>
+sudo apt``-``get install samba
+sudo apt``-``get install smbclient
+</pre>
+<pre>sudo /etc/init.d/samba restart</pre>
+
+
+<p>** 不关闭SELinux **<br>执行  </p>
+<pre>chcon -t -R samba_share_t /versions</pre>
+
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +515,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>共享目录设置</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:38:49</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/directory-share/" title="共享目录设置">https://literaryloong.com/2019/11/09/directory-share/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>ES 安装 | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="ES 安装 | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-es_install" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">ES 安装</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:40:49'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -427,7 +427,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#rpm-包安装"><span class="toc-text">rpm 包安装</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -443,7 +443,48 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <ul>
+<li><p>下载解压缩</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.0.tar.gz</span><br><span class="line">tar -zxvf elasticsearch-5.6.0.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li><p>配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> elasticsearch-5.6.0/config</span><br><span class="line">vi elasticsearch.yml</span><br><span class="line"><span class="comment"># 修改</span></span><br><span class="line">cluster.name: es-test</span><br><span class="line">node.name: node-n4 <span class="comment"># node-n5,node-n6</span></span><br><span class="line">network.host: 0.0.0.0</span><br><span class="line">discovery.zen.ping.unicast.hosts:[<span class="string">"test-n4"</span>,<span class="string">"test-n5"</span>, <span class="string">"test-n6"</span>]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>设置系统参数 vm.max_map_count</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysctl.conf </span><br><span class="line">  vm.max_map_count=262144</span><br><span class="line">sudo sysctl –p</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>编辑/etc/security/limits.conf </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 增加如下配置</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 解除内存限制</span></span><br><span class="line">cloud   soft    memlock         unlimited		</span><br><span class="line">cloud   hard    memlock         unlimited</span><br><span class="line"><span class="comment"># 最大文件数量限制</span></span><br><span class="line">cloud   soft    nofile          65536		  </span><br><span class="line">cloud   hard    nofile          65536</span><br><span class="line"><span class="comment"># 线程最大到4096</span></span><br><span class="line">cloud   soft    nproc           4096       </span><br><span class="line">cloud   hard    nproc           4096</span><br><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+<li><p>启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin\elasticsearth</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过web <a href="http://10.8.30.35:9200/_cat/health?v&amp;pretty" target="_blank" rel="noopener">http://10.8.30.35:9200/_cat/health?v&amp;pretty</a> 查看集群状态</p>
+</blockquote>
+</li>
+<li><p>创建索引</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建savoir_themes索引以及映射. 分片数3，副本数1</span></span><br><span class="line">PUT /savoir_themes  &#123;</span><br><span class="line">  <span class="string">"number_of_shards"</span>: 3,</span><br><span class="line">  <span class="string">"number_of_replicas"</span>: 1,</span><br><span class="line">  <span class="string">"settings"</span>: &#123;</span><br><span class="line">  <span class="string">"index.mapping.single_type"</span> : <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"mappings"</span>: &#123;</span><br><span class="line">    <span class="string">"theme"</span> : &#123;</span><br><span class="line">      <span class="string">"properties"</span>: &#123;</span><br><span class="line">        <span class="string">"sensor"</span>: &#123;<span class="string">"type"</span>: <span class="string">"integer"</span>&#125;,</span><br><span class="line">        <span class="string">"factor"</span>: &#123;<span class="string">"type"</span>: <span class="string">"integer"</span>&#125;,</span><br><span class="line">      <span class="string">"iota_device"</span>: &#123;<span class="string">"type"</span>: <span class="string">"keyword"</span>&#125;,</span><br><span class="line">        <span class="string">"collect_time"</span>: &#123;</span><br><span class="line">          <span class="string">"type"</span>: <span class="string">"date"</span>,</span><br><span class="line">          <span class="string">"format"</span>: <span class="string">"date_time || yyy-MM-dd HH:mm:ss"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"data"</span> : &#123;</span><br><span class="line">          <span class="string">"properties"</span>: &#123;</span><br><span class="line">            <span class="string">"deflection"</span> : &#123;<span class="string">"type"</span> : <span class="string">"double"</span>&#125;,</span><br><span class="line">            <span class="string">"max"</span> : &#123;<span class="string">"type"</span> : <span class="string">"double"</span>&#125;,</span><br><span class="line">            <span class="string">"min"</span> : &#123;<span class="string">"type"</span> : <span class="string">"double"</span>&#125;,</span><br><span class="line">            <span class="string">"soundLevel"</span> : &#123;<span class="string">"type"</span> : <span class="string">"double"</span>&#125;,</span><br><span class="line">            <span class="string">"ppv"</span> : &#123;<span class="string">"type"</span> : <span class="string">"double"</span>&#125;,</span><br><span class="line">            <span class="string">"pv"</span> : &#123;<span class="string">"type"</span> : <span class="string">"double"</span>&#125;,</span><br><span class="line">            <span class="string">"trms"</span> : &#123;<span class="string">"type"</span> : <span class="string">"double"</span>&#125;,</span><br><span class="line">            <span class="string">"temperature"</span> : &#123;<span class="string">"type"</span> : <span class="string">"double"</span>&#125;,</span><br><span class="line">            <span class="string">"humility"</span> : &#123;<span class="string">"type"</span> : <span class="string">"double"</span>&#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h1 id="rpm-包安装"><a href="#rpm-包安装" class="headerlink" title="rpm 包安装"></a>rpm 包安装</h1><blockquote>
+<p>提前下载好 es rpm 安装包 </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh elasticsearch-6.8.2.rpm</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>elasticsearch实例目录: /usr/share/elasticsearch</p>
+<p>elasticsearch配置文件目录: /etc/elasticsearch/</p>
+<p>es 服务链接文件 /usr/lib/systemd/system/elasticsearch.service</p>
+</blockquote>
+<blockquote>
+<p>NOT starting on installation, please execute the following statements to configure elasticsearch service to star<br> sudo systemctl daemon-reload<br> sudo systemctl enable elasticsearch.service<br>You can start elasticsearch service by executing<br> sudo systemctl start elasticsearch.service</p>
+</blockquote>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +495,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>ES 安装</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:40:49</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/es_install/" title="ES 安装">https://literaryloong.com/2019/11/09/es_install/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

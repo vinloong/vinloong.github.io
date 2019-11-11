@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>ES 参数说明 | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="ES 参数说明 | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-es-params" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">ES 参数说明</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:46:20'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -427,7 +427,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#flush操作"><span class="toc-text">flush操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#refresh操作"><span class="toc-text">refresh操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Local-Gateway"><span class="toc-text">Local Gateway</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ElasticSearch常用配置及性能参数"><span class="toc-text">ElasticSearch常用配置及性能参数</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -443,7 +443,54 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="flush操作"><a href="#flush操作" class="headerlink" title="flush操作"></a>flush操作</h2><blockquote>
+<ul>
+<li><code>index.translog.flush_threshold_ops</code>  :  执行多少次操作后执行一次flush，默认无限制</li>
+<li><code>index.translog.flush_threshold_size</code>  : translog的大小超过这个参数后flush，默认512mb</li>
+<li><code>index.translog.flush_threshold_period</code> : 多长时间强制flush一次,默认30m</li>
+<li><code>index.translog.interval</code> : es多久去检测一次translog是否满足flush条件</li>
+<li><code>index.translog.sync_interval</code>  : 控制translog多久fsync到磁盘,最小为100ms</li>
+<li><code>index.translog.durability</code> : translog是每5秒钟刷新一次还是每次请求都fsync , 有2个取值: <ul>
+<li><code>request</code> (每次请求都执行fsync,es要等translog fsync到磁盘后才会返回成功)</li>
+<li><code>async</code>(默认值,translog每隔5秒钟fsync一次)</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="refresh操作"><a href="#refresh操作" class="headerlink" title="refresh操作"></a>refresh操作</h2><blockquote>
+<p><code>index.refresh_interval</code> : 刷新间隔</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">PUT /anxinyun_raws</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"settings"</span>: &#123;</span><br><span class="line">    <span class="string">"index.number_of_shards"</span>: 15,</span><br><span class="line">    <span class="string">"index.translog.sync_interval"</span>: <span class="string">"60s"</span></span><br><span class="line">    </span><br><span class="line">    <span class="string">"index.number_of_replicas"</span>: 1,</span><br><span class="line">    <span class="string">"index.refresh_interval"</span>: <span class="string">"30s"</span>,</span><br><span class="line">    <span class="string">"index.translog.durability"</span>: <span class="string">"async"</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"mappings"</span>: &#123;</span><br><span class="line">    <span class="string">"raw"</span>: &#123;</span><br><span class="line">      <span class="string">"properties"</span>: &#123;</span><br><span class="line">        <span class="string">"iota_device"</span>: &#123;</span><br><span class="line">          <span class="string">"type"</span>: <span class="string">"keyword"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"collect_time"</span>: &#123;</span><br><span class="line">          <span class="string">"type"</span>: <span class="string">"date"</span>,</span><br><span class="line">          <span class="string">"format"</span>: <span class="string">"date_time || yyyy-MM-dd HH:mm:ss"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Local-Gateway"><a href="#Local-Gateway" class="headerlink" title="Local Gateway"></a>Local Gateway</h1><ul>
+<li><p><strong><code>gateway.expected_nodes</code></strong></p>
+<p>群集中应预期的（数据或主节点）节点数。本地分片的恢复将在预期节点数加入群集后立即开始。默认值为<code>0</code></p>
+</li>
+<li><p><strong><code>gateway.expected_master_nodes</code></strong></p>
+<p>群集中预期的主节点数。本地分片的恢复将在预期的主节点数加入群集后立即开始。默认值为<code>0</code></p>
+</li>
+<li><p><strong><code>gateway.expected_data_nodes</code></strong></p>
+<p>群集中预期的数据节点数。本地分片的恢复将在预期的数据节点数加入群集后立即开始。默认值为<code>0</code></p>
+</li>
+<li><p><strong><code>gateway.recover_after_time</code></strong></p>
+<p>如果未达到预期的节点数，则恢复过程将等待配置的时间量，然后再尝试恢复。不管如何。如果配置了其中一个设置，则默认为 。<code>5m``expected_nodes</code></p>
+</li>
+</ul>
+<p>持续时间超时后，只要满足以下条件，恢复就会开始：<code>recover_after_time</code></p>
+<ul>
+<li><p><strong><code>gateway.recover_after_nodes</code></strong></p>
+<p>只要这么多数据或主节点已加入群集，就恢复。</p>
+</li>
+<li><p><strong><code>gateway.recover_after_master_nodes</code></strong></p>
+<p>只要这么多主节点已加入群集，就恢复。</p>
+</li>
+<li><p><strong><code>gateway.recover_after_data_nodes</code></strong></p>
+<p>只要这么多数据节点已加入群集，就恢复。</p>
+</li>
+</ul>
+<h2 id="ElasticSearch常用配置及性能参数"><a href="#ElasticSearch常用配置及性能参数" class="headerlink" title="ElasticSearch常用配置及性能参数"></a>ElasticSearch常用配置及性能参数</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">bootstrap.memory_lock:</span> <span class="literal">true</span> <span class="comment">#     锁定内存,不让JVM写入swapping,避免降低ES的性能 。</span></span><br><span class="line"><span class="attr">http.cors.enabled:</span> <span class="literal">true</span>        <span class="comment">#     使用监控 例如head</span></span><br><span class="line"><span class="attr">http.cors.allow-origin:</span> <span class="string">"*"</span> <span class="comment">#   和上面那个一起开启,用于插件head</span></span><br><span class="line"><span class="attr">cluster.name:</span> <span class="string">new-elk</span>       <span class="comment">#    集群名称, 如果在同一网段下有多个集群,就可以用这个属性来区分不同的集群。</span></span><br><span class="line"><span class="attr">node.name:</span> <span class="string">"test"</span>              <span class="comment">#    节点名称</span></span><br><span class="line"><span class="attr">node.master:</span> <span class="literal">true</span>              <span class="comment">#    是否主节点</span></span><br><span class="line"><span class="attr">node.data:</span> <span class="literal">true</span>               <span class="comment">#    是否存储数据</span></span><br><span class="line"></span><br><span class="line"><span class="attr">index.number_of_shards:</span> <span class="number">5</span>            <span class="comment">#    索引分片数,默认为5片</span></span><br><span class="line"><span class="attr">index.number_of_replicas:</span> <span class="number">1</span>            <span class="comment">#    索引副本数,默认为1个副本</span></span><br><span class="line"><span class="attr">path.data:</span> <span class="string">/data/elasticsearch/data</span>    <span class="comment">#    数据目录存放位置</span></span><br><span class="line"><span class="attr">path.logs:</span> <span class="string">/data/elasticsearch/log</span>    <span class="comment">#    日志数据存放位置</span></span><br><span class="line"><span class="attr">index.cache.field.max_size:</span> <span class="number">500000</span>    <span class="comment">#    索引缓存</span></span><br><span class="line"><span class="attr">index.cache.field.expire:</span> <span class="string">5m</span>        <span class="comment">#    索引缓存过期时间</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">一个Elasticsearch节点会有多个线程池,但重要的是下面四个(默认都是cached类型):</span></span><br><span class="line">    <span class="string">索引(index)</span>     <span class="string">:</span>    <span class="string">主要是索引数据和删除数据操作</span></span><br><span class="line">    <span class="string">搜索(search)</span>    <span class="string">:</span>    <span class="string">主要是获取,统计和搜索操作</span></span><br><span class="line">    <span class="string">批量操作(bulk)</span>    <span class="string">:</span>    <span class="string">主要是对索引的批量操作</span></span><br><span class="line">    <span class="string">更新(refresh)</span>    <span class="string">:</span>    <span class="string">主要是更新操作</span></span><br><span class="line"></span><br><span class="line"><span class="string">thread</span> <span class="string">pool</span> <span class="string">setting</span></span><br><span class="line"><span class="attr">threadpool.index.type:</span> <span class="string">fixed</span>         <span class="comment">#    写索引线程池类型 </span></span><br><span class="line"><span class="attr">threadpool.index.size:</span> <span class="number">64</span>             <span class="comment">#    线程池大小(建议2~3倍cpu数) </span></span><br><span class="line"><span class="attr">threadpool.index.queue_size:</span> <span class="number">1000</span>    <span class="comment">#     队列大小</span></span><br><span class="line"></span><br><span class="line"><span class="attr">threadpool.search.size:</span> <span class="number">64</span>             <span class="comment">#    搜索线程池大小 </span></span><br><span class="line"><span class="attr">threadpool.search.type:</span> <span class="string">fixed</span>         <span class="comment">#    搜索线程池类型 </span></span><br><span class="line"><span class="attr">threadpool.search.queue_size:</span> <span class="number">1000</span>     <span class="comment">#    队列大小</span></span><br><span class="line"></span><br><span class="line"><span class="attr">threadpool.get.type:</span> <span class="string">fixed</span>             <span class="comment">#    取数据线程池类型 </span></span><br><span class="line"><span class="attr">threadpool.get.size:</span> <span class="number">32</span>             <span class="comment">#    取数据线程池大小 </span></span><br><span class="line"><span class="attr">threadpool.get.queue_size:</span> <span class="number">1000</span>     <span class="comment">#    队列大小</span></span><br><span class="line"></span><br><span class="line"><span class="attr">threadpool.bulk.type:</span> <span class="string">fixed</span>         <span class="comment">#    批量请求线程池类型 </span></span><br><span class="line"><span class="attr">threadpool.bulk.size:</span> <span class="number">32</span>             <span class="comment">#    批量请求线程池大小 </span></span><br><span class="line"><span class="attr">threadpool.bulk.queue_size:</span> <span class="number">1000</span>     <span class="comment">#    队列大小</span></span><br><span class="line"></span><br><span class="line"><span class="attr">threadpool.flush.type:</span> <span class="string">fixed</span>         <span class="comment">#    刷磁盘线程池类型 </span></span><br><span class="line"><span class="attr">threadpool.flush.size:</span> <span class="number">32</span>             <span class="comment">#    刷磁盘线程池大小 </span></span><br><span class="line"><span class="attr">threadpool.flush.queue_size:</span> <span class="number">1000</span>     <span class="comment">#    队列大小</span></span><br><span class="line"></span><br><span class="line"><span class="attr">indices.store.throttle.type:</span> <span class="string">merge</span> </span><br><span class="line"><span class="attr">indices.store.throttle.type:</span> <span class="string">none</span>                 <span class="comment">#    写磁盘类型 </span></span><br><span class="line"><span class="string">indices.store.throttle.max_bytes_per_sec:500mb</span>     <span class="comment">#    写磁盘最大带宽</span></span><br><span class="line"></span><br><span class="line"><span class="attr">index.merge.scheduler.max_thread_count:</span> <span class="number">8</span>         <span class="comment">#    索引merge最大线程数 </span></span><br><span class="line"><span class="string">index.translog.flush_threshold_size:600MB</span>         <span class="comment">#    刷新translog文件阀值</span></span><br><span class="line"></span><br><span class="line"><span class="string">cluster.routing.allocation.node_initial_primaries_recoveries:8</span>     <span class="comment">#    并发恢复分片数 </span></span><br><span class="line"><span class="string">cluster.routing.allocation.node_concurrent_recoveries:2</span>         <span class="comment">#    同时recovery并发数</span></span><br></pre></td></tr></table></figure>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +501,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>ES 参数说明</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:46:20</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/es-params/" title="ES 参数说明">https://literaryloong.com/2019/11/09/es-params/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 

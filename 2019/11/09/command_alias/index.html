@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | literaryloong&#39;s 博客</title>
+  <title>alias 命令 | literaryloong&#39;s 博客</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | literaryloong&#39;s 博客">
+  <meta name="description" content="alias 命令 | literaryloong&#39;s 博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -393,9 +393,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-command_alias" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">alias 命令</h1>
     
     <div class="article-meta">
         
@@ -405,7 +405,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-06 11:52:27'>2019-11-06 11:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 10:36:29'>2019-11-09 17:18</time>
         
     </div>
     <div class="article-meta">
@@ -427,7 +427,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#alias"><span class="toc-text">alias</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设置指令的别名"><span class="toc-text">设置指令的别名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看alias"><span class="toc-text">查看alias</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#删除别名"><span class="toc-text">删除别名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#别名永久生效"><span class="toc-text">别名永久生效</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#每次登录自动生效"><span class="toc-text">每次登录自动生效</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#让每一位用户都生效"><span class="toc-text">让每一位用户都生效</span></a></li></ol></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -443,7 +443,40 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h1><h3 id="设置指令的别名"><a href="#设置指令的别名" class="headerlink" title="设置指令的别名"></a>设置指令的别名</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> name=<span class="string">'command line'</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参数：<br>-p：    打印出现有的别名（唯一的参数）<br>若不加任何参数，则列出目前所有的别名设置</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cp来代替cp -i，而且cp -i这条命令依旧有效</span></span><br><span class="line"><span class="built_in">alias</span> cp=<span class="string">'cp -i'</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="查看alias"><a href="#查看alias" class="headerlink" title="查看alias"></a>查看alias</h3><blockquote>
+<p>列出目前所有的别名设置</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span>    </span><br><span class="line"><span class="comment"># 或 </span></span><br><span class="line"><span class="built_in">alias</span> -p</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查看具体一条指令的别名</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> cp</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="删除别名"><a href="#删除别名" class="headerlink" title="删除别名"></a>删除别名</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unalias</span> <span class="variable">$name</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="别名永久生效"><a href="#别名永久生效" class="headerlink" title="别名永久生效"></a>别名永久生效</h1><h4 id="每次登录自动生效"><a href="#每次登录自动生效" class="headerlink" title="每次登录自动生效"></a>每次登录自动生效</h4><blockquote>
+<p>把别名加在 <code>/etc/profile</code> 或 <code>~/.bashrc</code> 中; 然后  <code>source ~/.bashrc</code></p>
+</blockquote>
+<h4 id="让每一位用户都生效"><a href="#让每一位用户都生效" class="headerlink" title="让每一位用户都生效"></a>让每一位用户都生效</h4><blockquote>
+<p>把别名加在 <code>/etc/bashrc</code> 最后面; 然后 <code>source /etc/bashrc</code> </p>
+</blockquote>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 literaryloong@gmail.com。 </span>
     </div>
@@ -454,6 +487,18 @@
     <a href="javascript:void(0)" target="_blank" rel="noopener" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>alias 命令</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" target="_blank" rel="noopener" title="literaryloong">literaryloong</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-09, 17:18:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 10:36:29</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/09/command_alias/" title="alias 命令">https://literaryloong.com/2019/11/09/command_alias/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 
