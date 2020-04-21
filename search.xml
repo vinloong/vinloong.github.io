@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Ubuntu 安装Docker CE</title>
+    <title>Ubuntu 中安装 Docker CE</title>
     <url>/2020/03/28/docker-install/</url>
     <content><![CDATA[<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
 <li>系统要求<ul>
