@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>小岛</title>
+  
+  <subtitle>面朝大海，春暖花开</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-04-21T05:44:42.148Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>dragon</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2020/04/21/hello-world/"/>
+    <id>http://yoursite.com/2020/04/21/hello-world/</id>
+    <published>2020-04-20T17:40:50.644Z</published>
+    <updated>2020-04-21T05:44:42.148Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>docker 安装</title>
+    <link href="http://yoursite.com/2020/04/21/docker-install/"/>
+    <id>http://yoursite.com/2020/04/21/docker-install/</id>
+    <published>2020-04-20T16:00:00.000Z</published>
+    <updated>2020-04-21T06:02:50.407Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Ubuntu-安装Docker-CE&quot;&gt;&lt;a href=&quot;#Ubuntu-安装Docker-CE&quot; class=&quot;headerlink&quot; title=&quot;Ubuntu 安装Docker CE&quot;&gt;&lt;/a&gt;Ubuntu 安装Docker CE&lt;/h1&gt;&lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;系统要求&lt;ul&gt;
+&lt;li&gt;ununtu 16.04 LTS &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;卸载旧版本&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
+    
+  </entry>
+  
+</feed>
