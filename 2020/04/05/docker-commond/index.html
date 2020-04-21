@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="生活,工作,故事,代码,啤酒" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    docker 容器管理常用命令解析 |  小岛
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="小岛" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-docker-commond" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  docker 容器管理常用命令解析
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/05/docker-commond/" class="article-date">
+  <time datetime="2020-04-04T16:00:00.000Z" itemprop="datePublished">2020-04-05</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a> / <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/k8s-docker/">k8s&docker</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="1-容器生命周期管理"><a href="#1-容器生命周期管理" class="headerlink" title="1 容器生命周期管理"></a>1 容器生命周期管理</h2><h3 id="run"><a href="#run" class="headerlink" title="run"></a>run</h3><p>  <strong>语法</strong></p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<blockquote>
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong><code>-d</code>:</strong> 后台运行容器，并返回容器ID；</li>
+<li><strong><code>-i</code>:</strong> 以交互模式运行容器，通常与 -t 同时使用；</li>
+<li><strong><code>-P</code>:</strong> 随机端口映射，容器内部端口<strong>随机</strong>映射到主机的高端口</li>
+<li><strong><code>-p</code>:</strong> 指定端口映射，格式为：<strong>主机(宿主)端口:容器端口</strong></li>
+<li><strong><code>-t</code>:</strong> 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</li>
+<li><strong><code>--name</code>:</strong> 为容器指定一个名称；</li>
+<li><strong><code>--link</code>:</strong> 添加链接到另一个容器；</li>
+<li><strong><code>--expose</code>:</strong> 开放一个端口或一组端口；</li>
+<li><strong><code>--volume</code> , <code>-v</code>:</strong> 绑定一个卷</li>
+</ul>
+</blockquote>
+<p> <strong>实例</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name myghost -d ghost:latest</span><br><span class="line"></span><br><span class="line">$ docker run -P -d ghost:latest</span><br><span class="line"></span><br><span class="line">$ docker run -p 8000:2368 -d ghost:last</span><br><span class="line"></span><br><span class="line">$ docker run -it ghost:last /bin/bash</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当利用 <code>docker run</code> 来创建容器时，Docker 在后台运行的标准操作包括：</p>
+<ul>
+<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
+<li>利用镜像创建并启动一个容器</li>
+<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
+<li>从地址池配置一个 ip 地址给容器</li>
+<li>执行用户指定的应用程序</li>
+<li>执行完毕后容器被终止</li>
+</ul>
+</blockquote>
+<h3 id="start-stop-restart"><a href="#start-stop-restart" class="headerlink" title="start/stop/restart"></a>start/stop/restart</h3><blockquote>
+<p><strong>docker start</strong> :启动一个或多个已经被停止的容器</p>
+<p><strong>docker stop</strong> :停止一个运行中的容器</p>
+<p><strong>docker restart</strong> :重启容器</p>
+</blockquote>
+<p>  <strong>语法</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker start [OPTIONS] CONTAINER [CONTAINER...]</span><br><span class="line">$ docker stop [OPTIONS] CONTAINER [CONTAINER...]</span><br><span class="line">$ docker restart [OPTIONS] CONTAINER [CONTAINER...]</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>实例</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker start myghost</span><br><span class="line">$ docker stop myrunoob</span><br><span class="line">$ docker restart myrunoob</span><br></pre></td></tr></table></figure>
+
+<h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><blockquote>
+<p><strong>docker rm ：</strong>删除一个或多个容器。</p>
+</blockquote>
+<p>  <strong>语法</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker rm [OPTIONS] CONTAINER [CONTAINER...]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong>-f :</strong>通过 SIGKILL 信号强制删除一个运行中的容器。</li>
+<li><strong>-l :</strong>移除容器间的网络连接，而非容器本身。</li>
+<li><strong>-v :</strong>删除与容器关联的卷。</li>
+</ul>
+</blockquote>
+<p>  <strong>实例</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ docker rm -f myghost</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除所有已经停止的容器</span></span><br><span class="line">$ docker rm $(docker ps -a -q)</span><br><span class="line"><span class="comment"># 清理所有处于终止状态的容器</span></span><br><span class="line">$ docker container prune</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="2-容器操作"><a href="#2-容器操作" class="headerlink" title="2 容器操作"></a>2 容器操作</h2><h3 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h3><blockquote>
+<p><strong>docker ps :</strong> 列出容器</p>
+</blockquote>
+<p>  <strong>语法</strong></p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker ps [OPTIONS]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong>-a :</strong>显示所有的容器，包括未运行的。</li>
+<li><strong>-f :</strong>根据条件过滤显示的内容。</li>
+<li><strong>–format :</strong>指定返回值的模板文件。</li>
+<li><strong>-l :</strong>显示最近创建的容器。</li>
+<li><strong>-n :</strong>列出最近创建的n个容器。</li>
+<li><strong>–no-trunc :</strong>不截断输出。</li>
+<li><strong>-q :</strong>静默模式，只显示容器编号。</li>
+<li><strong>-s :</strong>显示总的文件大小。</li>
+</ul>
+</blockquote>
+<p>  <strong>实例</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker ps</span><br></pre></td></tr></table></figure>
+
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID	IMAGE		COMMAND				CREATED					STATUS		PORTS		NAMES</span><br><span class="line">31948620b4e9	ubuntu		&quot;&#x2F;bin&#x2F;bash&quot;			33 seconds ago		Up 32 seconds 				infallible_mahavira</span><br><span class="line">908dae191777   ghost:v3   &quot;docker-entrypoint.s…&quot;	3 hours ago  Up 3 hours    2368&#x2F;tcp  condescending_sutherland</span><br><span class="line">e87b3c175433   ghost:v2   &quot;docker-entrypoint.s…&quot;   3 hours ago  Up 3 hours    2368&#x2F;tcp    eloquent_hoover</span><br><span class="line">8251ca2ebd72   ghost     &quot;docker-entrypoint.s…&quot;   3 hours ago  Up 3 hours    2368&#x2F;tcp    jolly_varahamihira</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出详情介绍：</p>
+<p><strong>CONTAINER ID:</strong> 容器 ID。</p>
+<p><strong>IMAGE:</strong> 使用的镜像。</p>
+<p><strong>COMMAND:</strong> 启动容器时运行的命令。</p>
+<p><strong>CREATED:</strong> 容器的创建时间。</p>
+<p><strong>STATUS:</strong> 容器状态。</p>
+<p><strong>PORTS:</strong> 容器的端口信息和使用的连接类型（tcp\udp）。</p>
+<p><strong>NAMES:</strong> 容器名称。</p>
+</blockquote>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出最近创建的5个容器</span></span><br><span class="line">$ docker ps -n 5</span><br></pre></td></tr></table></figure>
+
+<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><blockquote>
+<p>查看容器中运行的进程</p>
+</blockquote>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker top 908d</span><br><span class="line">UID			PID			PPID			C			STIME			TTY			TIME			CMD</span><br><span class="line">dragon 		7493  		7468    		0    		Mar11    		?      00:00:06     node current/index.js</span><br></pre></td></tr></table></figure>
+
+<h3 id="logs"><a href="#logs" class="headerlink" title="logs"></a>logs</h3><blockquote>
+<p>查看日志</p>
+</blockquote>
+<p>  <strong>语法</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker logs [OPTIONS] CONTAINER</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong>-f :</strong> 跟踪日志输出</li>
+<li><strong>–since :</strong>显示某个开始时间的所有日志</li>
+<li><strong>-t :</strong> 显示时间戳</li>
+<li><strong>–tail :</strong>仅列出最新N条容器日志</li>
+</ul>
+</blockquote>
+<p>  <strong>实例</strong></p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ docker logs e87b --tail 10</span><br><span class="line">[2020-03-11 09:47:33] INFO Model: User</span><br><span class="line">[2020-03-11 09:47:36] INFO Model: Post</span><br><span class="line">[2020-03-11 09:47:36] INFO Model: Integration</span><br><span class="line">[2020-03-11 09:47:36] INFO Relation: Role to Permission</span><br><span class="line">[2020-03-11 09:47:36] INFO Relation: Post to Tag</span><br><span class="line">[2020-03-11 09:47:37] INFO Relation: User to Role</span><br><span class="line">[2020-03-11 09:47:39] INFO Ghost is running <span class="keyword">in</span> production...</span><br><span class="line">[2020-03-11 09:47:39] INFO Your site is now available on http://localhost:2368/</span><br><span class="line">[2020-03-11 09:47:39] INFO Ctrl+C to shut down</span><br><span class="line">[2020-03-11 09:47:39] INFO Ghost boot 9.19s</span><br><span class="line"></span><br><span class="line">$ docker logs --since=<span class="string">"2020-03-11"</span> --tail=10 myghost</span><br></pre></td></tr></table></figure>
+
+<h3 id="attach"><a href="#attach" class="headerlink" title="attach"></a>attach</h3>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -dit ubuntu</span><br><span class="line">$ docker ps</span><br><span class="line"></span><br><span class="line">$ docker attach <span class="variable">$&#123;ubuntu-id&#125;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用这个命令退出后，会导致容器的停止，所以我们一般不用这个命令</p>
+</blockquote>
+<h3 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h3><blockquote>
+<p>配合 -i -t 参数使用</p>
+</blockquote>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">exec</span> -it &#123;container&#125; /bin/bash</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="导入导出"><a href="#导入导出" class="headerlink" title="导入导出"></a>导入导出</h3>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ docker ps</span><br><span class="line">CONTAINER ID	IMAGE        COMMAND            CREATED      STATUS    		PORTS  			NAMES</span><br><span class="line">c03cc0150ec0	centos		<span class="string">"/bin/bash"</span> 			  11 hours ago 	  Up 11 hours			    competent_faraday</span><br><span class="line">908dae191777   ghost:v3   <span class="string">"docker-entrypoint.s…"</span>   14 hours ago   Up 14 hours   2368/tcp   condescendi_serland</span><br><span class="line">e87b3c175433   ghost:v2   <span class="string">"docker-entrypoint.s…"</span>   14 hours ago   Up 14 hours   2368/tcp   eloquent_hoover</span><br><span class="line">8251ca2ebd72   ghost     <span class="string">"docker-entrypoint.s…"</span>   14 hours ago   Up 14 hours   2368/tcp   jolly_varahamihira</span><br><span class="line">$ docker <span class="built_in">export</span> c03c &gt;  centos.tar</span><br><span class="line">$ ls</span><br><span class="line">centos.tar  <span class="built_in">test</span></span><br><span class="line">$ docker import centos.tar runoob/centos:v1</span><br><span class="line">sha256:b5617da775a7029cbd39751a78648f38a6c4ea814d63afb964bc5d2ffe2d1b5e</span><br><span class="line">$ docker images</span><br><span class="line">REPOSITORY        	  TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">runoob/centos      		 v1                  b5617da775a7        8 seconds ago       237MB</span><br><span class="line">ghost               v5                  99199520ec4e        14 hours ago        394MB</span><br><span class="line">ghost               v4                  7d768396433e        14 hours ago        394MB</span><br><span class="line">ghost               v2                  051c57821d49        14 hours ago        394MB</span><br><span class="line">ghost               v3                  051c57821d49        14 hours ago        394MB</span><br><span class="line">ghost               latest              d37060d26de6        2 days ago          394MB</span><br><span class="line">nginx               latest              6678c7c2e56c        7 days ago          127MB</span><br><span class="line">ubuntu              latest              72300a873c2c        2 weeks ago         64.2MB</span><br><span class="line">centos              latest              470671670cac        7 weeks ago         237MB</span><br><span class="line">hello-world           latest              fce289e99eb9        14 months ago       1.84kB</span><br></pre></td></tr></table></figure>
+
+<h3 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h3><blockquote>
+<p><strong>docker commit :</strong>从容器创建一个新的镜像。</p>
+</blockquote>
+<p> <strong>语法</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong>-a :</strong>提交的镜像作者</li>
+<li><strong>-c :</strong>使用Dockerfile指令来创建镜像</li>
+<li><strong>-m :</strong>提交时的说明文字</li>
+<li><strong>-p :</strong>在commit时，将容器暂停</li>
+</ul>
+</blockquote>
+<p><strong>实例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker commit -a <span class="string">"noob"</span> -m <span class="string">"I'm a noob."</span> 8251 noob/ghost:v1</span><br></pre></td></tr></table></figure>
+
+<h3 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h3><blockquote>
+<p><strong>docker cp :</strong>用于容器与主机之间的数据拷贝。</p>
+</blockquote>
+<p><strong>语法</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker cp [OPTIONS] SRC_PATH DEST_PATH</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 容器里有noob 目录,test 就会拷贝到 noob 里面</span></span><br><span class="line">$ docker cp ./<span class="built_in">test</span> c03c:/home/noob</span><br><span class="line"></span><br><span class="line"><span class="comment"># 容器里没有 docker 目录,就会把 test 重命名为docker</span></span><br><span class="line">$ docker cp ./<span class="built_in">test</span> c03c:/home/docker</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-镜像仓库"><a href="#3-镜像仓库" class="headerlink" title="3 镜像仓库"></a>3 镜像仓库</h2><h3 id="login"><a href="#login" class="headerlink" title="login"></a>login</h3><blockquote>
+<p><strong>docker login :</strong> 登陆到一个Docker镜像仓库，如果未指定镜像仓库地址，默认为官方仓库 Docker Hub</p>
+<p><strong>docker logout :</strong> 登出一个Docker镜像仓库，如果未指定镜像仓库地址，默认为官方仓库 Docker Hub</p>
+</blockquote>
+<p><strong>实例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker login -u user -p **** repository.anxinyun.cn</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="pull"><a href="#pull" class="headerlink" title="pull"></a>pull</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull [OPTIONS] NAME[:TAG|@DIGEST]</span><br><span class="line"></span><br><span class="line">$ docker pull node</span><br></pre></td></tr></table></figure>
+
+<h3 id="push"><a href="#push" class="headerlink" title="push"></a>push</h3><blockquote>
+<p><strong>docker push :</strong> 将本地的镜像上传到镜像仓库,要先登陆到镜像仓库</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker push repository.anxinyun.cn/anxinyun/console:dragon.226</span><br></pre></td></tr></table></figure>
+
+<h3 id="search"><a href="#search" class="headerlink" title="search"></a>search</h3><blockquote>
+<p><strong>docker search :</strong> 从Docker Hub查找镜像</p>
+</blockquote>
+<p><strong>语法</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker search [OPTIONS] TERM</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>OPTIONS说明：</p>
+<ul>
+<li>–filter</li>
+<li>–limit</li>
+</ul>
+</blockquote>
+<p><strong>实例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只列出 automated build类型的镜像</span></span><br><span class="line">$ docker search --filter is-automated=<span class="literal">true</span> java</span><br><span class="line"></span><br><span class="line">$ docker search --filter is-automated=<span class="literal">true</span> --filter stars=30 java</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-本地镜像管理"><a href="#4-本地镜像管理" class="headerlink" title="4 本地镜像管理"></a>4 本地镜像管理</h2><h3 id="images"><a href="#images" class="headerlink" title="images"></a>images</h3><blockquote>
+<p><strong>docker images :</strong> 列出本地镜像。</p>
+</blockquote>
+<p><strong>语法</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker images [OPTIONS] [REPOSITORY[:TAG]]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong>-a :</strong>列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</li>
+<li><strong>–digests :</strong>显示镜像的摘要信息；</li>
+<li><strong>-f :</strong>显示满足条件的镜像；</li>
+<li><strong>–format :</strong>指定返回值的模板文件；</li>
+<li><strong>–no-trunc :</strong>显示完整的镜像信息；</li>
+<li><strong>-q :</strong>只显示镜像ID。</li>
+</ul>
+</blockquote>
+<p><strong>实例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker images</span><br><span class="line"></span><br><span class="line">$ docker images  ubuntu</span><br></pre></td></tr></table></figure>
+
+<h3 id="rmi"><a href="#rmi" class="headerlink" title="rmi"></a>rmi</h3><blockquote>
+<p><strong>docker rmi :</strong> 删除本地一个或多少镜像。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker rmi -f ubuntu</span><br></pre></td></tr></table></figure>
+
+<h3 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/][USERNAME/]NAME[:TAG]</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker tag ghost noob/ghost:v1</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="build"><a href="#build" class="headerlink" title="build"></a>build</h3><blockquote>
+<p><strong>docker build</strong> 命令用于使用 Dockerfile 创建镜像。</p>
+</blockquote>
+<p><strong>语法</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build [OPTIONS] PATH | URL | -</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong>-f :</strong>指定要使用的Dockerfile路径；</li>
+<li><strong>–pull :</strong>尝试去更新镜像的新版本；</li>
+<li><strong>–quiet, -q :</strong>安静模式，成功后只输出镜像 ID；</li>
+<li><strong>–rm :</strong>设置镜像成功后删除中间容器；</li>
+<li><strong>–tag, -t:</strong> 镜像的名字及标签，通常 name:tag 或者 name 格式；可以在一次构建中为一个镜像设置多个标签。</li>
+</ul>
+</blockquote>
+<p><strong>实例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker build -t repository.anxinyun.cn/anxinyun/console:dragon.226 --pull=<span class="literal">true</span> .</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="5-info-version"><a href="#5-info-version" class="headerlink" title="5 info|version"></a>5 info|version</h2><h3 id="info"><a href="#info" class="headerlink" title="info"></a>info</h3><blockquote>
+<p>docker info : 显示 Docker 系统信息，包括镜像和容器数</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker info</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="version"><a href="#version" class="headerlink" title="version"></a>version</h3><blockquote>
+<p>docker version :显示 Docker 版本信息</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker version</span><br></pre></td></tr></table></figure>
+
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong>
+              本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/05/docker-commond/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/04/11/docker-Dockerfile/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Dockerfile常用命令解析
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/03/28/docker-install/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Ubuntu 安装Docker CE</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '1NzunV96zMn1z5KKWwmrX7qX-gzGzoHsz',
+        app_key: '0GzaCmIldlSgQDmJqCM2nrgo',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2020
+        <i class="ri-heart-fill heart_icon"></i> dragon
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="小岛"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+<!-- 复制 -->
+
+  
+<link rel="stylesheet" href="/css/clipboard.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=141609&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        left: 150px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>

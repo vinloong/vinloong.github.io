@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-04-21T05:44:42.148Z</updated>
+  <updated>2020-04-21T13:25:11.821Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,33 +17,100 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2020/04/21/hello-world/"/>
-    <id>http://yoursite.com/2020/04/21/hello-world/</id>
-    <published>2020-04-20T17:40:50.644Z</published>
-    <updated>2020-04-21T05:44:42.148Z</updated>
+    <title>docker 使用中遇到的问题汇总</title>
+    <link href="http://yoursite.com/2020/04/18/docker-faq/"/>
+    <id>http://yoursite.com/2020/04/18/docker-faq/</id>
+    <published>2020-04-17T16:00:00.000Z</published>
+    <updated>2020-04-21T13:25:11.821Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;
+      
+      
+        
+        
+          &lt;h2 id=&quot;Q1&quot;&gt;&lt;a href=&quot;#Q1&quot; class=&quot;headerlink&quot; title=&quot;Q1:&quot;&gt;&lt;/a&gt;Q1:&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;jenkins in docker 遇到如下错误：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure
+        
+      
     
     </summary>
     
     
+      <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="k8s&amp;docker" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/k8s-docker/"/>
+    
+    
+      <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
     
   </entry>
   
   <entry>
-    <title>docker 安装</title>
-    <link href="http://yoursite.com/2020/04/21/docker-install/"/>
-    <id>http://yoursite.com/2020/04/21/docker-install/</id>
-    <published>2020-04-20T16:00:00.000Z</published>
-    <updated>2020-04-21T06:02:50.407Z</updated>
+    <title>Dockerfile常用命令解析</title>
+    <link href="http://yoursite.com/2020/04/11/docker-Dockerfile/"/>
+    <id>http://yoursite.com/2020/04/11/docker-Dockerfile/</id>
+    <published>2020-04-10T16:00:00.000Z</published>
+    <updated>2020-04-21T13:14:52.013Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Ubuntu-安装Docker-CE&quot;&gt;&lt;a href=&quot;#Ubuntu-安装Docker-CE&quot; class=&quot;headerlink&quot; title=&quot;Ubuntu 安装Docker CE&quot;&gt;&lt;/a&gt;Ubuntu 安装Docker CE&lt;/h1&gt;&lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;ul&gt;
+      
+      
+        
+        
+          &lt;h2 id=&quot;什么是Dockerfile&quot;&gt;&lt;a href=&quot;#什么是Dockerfile&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="k8s&amp;docker" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/k8s-docker/"/>
+    
+    
+      <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker 容器管理常用命令解析</title>
+    <link href="http://yoursite.com/2020/04/05/docker-commond/"/>
+    <id>http://yoursite.com/2020/04/05/docker-commond/</id>
+    <published>2020-04-04T16:00:00.000Z</published>
+    <updated>2020-04-21T13:14:39.475Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-容器生命周期管理&quot;&gt;&lt;a href=&quot;#1-容器生命周期管理&quot; class=&quot;headerlink&quot; title=&quot;1 容器生命周期管理&quot;&gt;&lt;/a&gt;1 容器生命周期管理&lt;/h2&gt;&lt;h3 id=&quot;run&quot;&gt;&lt;a href=&quot;#run&quot; class=&quot;headerlink&quot; title=&quot;run&quot;&gt;&lt;/a&gt;run&lt;/h3&gt;&lt;p&gt;  &lt;strong&gt;语法&lt;/strong&gt;&lt;/p&gt;
+  &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="k8s&amp;docker" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/k8s-docker/"/>
+    
+    
+      <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu 安装Docker CE</title>
+    <link href="http://yoursite.com/2020/03/28/docker-install/"/>
+    <id>http://yoursite.com/2020/03/28/docker-install/</id>
+    <published>2020-03-27T16:00:00.000Z</published>
+    <updated>2020-04-21T13:14:13.476Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;系统要求&lt;ul&gt;
 &lt;li&gt;ununtu 16.04 LTS &lt;/li&gt;
 &lt;/ul&gt;
@@ -55,6 +122,8 @@
     
     
       <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="k8s&amp;docker" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/k8s-docker/"/>
     
     
       <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
