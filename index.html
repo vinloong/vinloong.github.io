@@ -83,6 +83,89 @@
     
     
     
+    <article id="post-ubuntu-tips" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/22/ubuntu-tips/"
+    >Ubuntu 使用中的一些小技巧</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/22/ubuntu-tips/" class="article-date">
+  <time datetime="2020-04-21T16:00:00.000Z" itemprop="datePublished">2020-04-22</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a> / <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/Linux/">Linux</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="1-更换软件源"><a href="#1-更换软件源" class="headerlink" title="1. 更换软件源"></a>1. 更换软件源</h2><blockquote>
+<p>众所周知由于国内的网络原因，有时候下载安装软件比较慢,使用国内的软件源速度就会好很多<br>常用的镜像站：  </p>
+<ul>
+<li><a href="http://mirrors.163.com" target="_blank" rel="noopener">http://mirrors.163.com</a></li>
+<li><a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/</a></li>
+<li><a href="https://mirrors.huaweicloud.com/" target="_blank" rel="noopener">https://mirrors.huaweicloud.com/</a></li>
+<li><a href="https://mirrors.ustc.edu.cn/" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/</a>  </li>
+<li><a href="https://mirrors.aliyun.com/" target="_blank" rel="noopener">https://mirrors.aliyun.com/</a></li>
+</ul>
+</blockquote>
+      
+      <a class="article-more-link" href="/2020/04/22/ubuntu-tips/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-docker-faq" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -127,25 +210,9 @@
 <p>jenkins in docker 遇到如下错误：</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ERROR: Build step failed with exception</span><br><span class="line">net.sf.json.JSONException: A JSONObject text must begin with &#39;&#123;&#39; at character 0 of at net.sf.json.util.JSONTokener.syntaxError(JSONTokener.java:499)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>进入jenkins 容器，进入jenkins 主目录, 删除 <code>.docker</code> 目录</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">exec</span> -it &#123;&#123;container&#125;&#125; /bin/bash</span><br><span class="line"></span><br><span class="line">&#123;&#123;container&#125;&#125; $ <span class="built_in">cd</span> </span><br><span class="line">&#123;&#123;container&#125;&#125; $ rm -rf .docker .dockercfg</span><br></pre></td></tr></table></figure>
-
-<h2 id="Q2"><a href="#Q2" class="headerlink" title="Q2:"></a>Q2:</h2><blockquote>
-<p>windows 下使用 <code>Dockers-Desktop</code> 时，已经启用了 <code>Hyper-V</code>,打开 <code>Dockers-Desktop</code> 时还是会报错，不能正常使用</p>
-</blockquote>
-<p>管理员身份运行命令行程序：</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All</span><br><span class="line"></span><br><span class="line">bcdedit /<span class="built_in">set</span> hypervisorlaunchtype auto</span><br></pre></td></tr></table></figure>
-
-<h2 id="Q3"><a href="#Q3" class="headerlink" title="Q3:"></a>Q3:</h2><blockquote>
-<p>   docker login 登录镜像仓库时,密码正确但报如下错误：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WARNING! Using --password via the CLI is insecure. Use --password-stdin.</span><br><span class="line">Error saving credentials: error storing credentials - err: exit status 1, out: &#96;Cannot autolaunch D-Bus without X11 $DISPLAY&#96;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>解决方案：安装 <code>gnupg2</code> 和 <code>pass</code><br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gnupg2 pass</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-
+      
+      <a class="article-more-link" href="/2020/04/18/docker-faq/">阅读更多...</a>
+      
       
       <!-- reward -->
       
@@ -222,57 +289,9 @@
 <h2 id="指令详解"><a href="#指令详解" class="headerlink" title="指令详解"></a>指令详解</h2><h3 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h3><blockquote>
 <p>定制的镜像都是基于 FROM 的镜像。</p>
 </blockquote>
-<h3 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h3><blockquote>
-<p>用于执行后面跟着的命令行命令</p>
-</blockquote>
-<p><strong>注意</strong>：Dockerfile 的指令每执行一次都会在 docker 上新建一层。所以过多无意义的层，会造成镜像膨胀过大。例如：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install wget</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> wget -O redis.tar.gz <span class="string">"http://download.redis.io/releases/redis-5.0.3.tar.gz"</span></span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> tar -xvf redis.tar.gz</span></span><br><span class="line"><span class="comment"># 以上执行会创建 3 层镜像。可简化为以下格式：</span></span><br><span class="line"><span class="keyword">FROM</span> centos</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install wget \</span></span><br><span class="line"><span class="bash">    &amp;&amp; wget -O redis.tar.gz <span class="string">"http://download.redis.io/releases/redis-5.0.3.tar.gz"</span> \</span></span><br><span class="line"><span class="bash">    &amp;&amp; tar -xvf redis.tar.gz</span></span><br></pre></td></tr></table></figure>
-
-<p>如上，以 <strong>&amp;&amp;</strong> 符号连接命令，这样执行后，只会创建 1 层镜像。</p>
-<h3 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="bash"> &lt;源路径1&gt;...  &lt;目标路径&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">shell</span><span class="bash"> 格式：CMD &lt;命令&gt;</span></span><br><span class="line">exec 格式：<span class="keyword">CMD</span><span class="bash"> [<span class="string">"可执行文件"</span>, <span class="string">"参数1"</span>, <span class="string">"参数2"</span>...]</span></span><br></pre></td></tr></table></figure>
-
-<p>可以被替换</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it ubuntu cat /etc/os-release</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换了 [/bin/bash]</span></span><br><span class="line"></span><br><span class="line">$ docker run -it ubuntu</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CMD</span><span class="bash"> [ <span class="string">"sh"</span>, <span class="string">"-c"</span>, <span class="string">"echo <span class="variable">$HOME</span>"</span> ]</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h3><blockquote>
-<p>指定 ENTRYPOINT后，如果有 CMD ，则，CMD 不再是直接运行的命令，而是作为参数传给 ENTRYPOINT 使用</p>
-</blockquote>
-<h3 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> &lt;key&gt; &lt;value&gt;</span><br><span class="line"><span class="keyword">ENV</span> &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt;...</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPOSE</span> &lt;端口<span class="number">1</span>&gt; [&lt;端口<span class="number">2</span>&gt;...]</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> &lt;工作目录路径&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USER</span> &lt;用户名&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="定制一个镜像"><a href="#定制一个镜像" class="headerlink" title="定制一个镜像"></a>定制一个镜像</h2><blockquote>
-<p>定制一个镜像：jdk8 + python3 </p>
-</blockquote>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基础镜像 使用 alpine</span></span><br><span class="line"><span class="keyword">FROM</span> alpine</span><br><span class="line"><span class="comment"># 更换软件源</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> sed -i <span class="string">'s/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g'</span> /etc/apk/repositories</span></span><br><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone </span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk update &amp;&amp; apk add openjdk8 python3</span></span><br></pre></td></tr></table></figure>
-
-
-
-
+      
+      <a class="article-more-link" href="/2020/04/11/docker-Dockerfile/">阅读更多...</a>
+      
       
       <!-- reward -->
       
