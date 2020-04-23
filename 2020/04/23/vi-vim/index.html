@@ -11,7 +11,7 @@
    
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    ubuntu 18.04 LTS 静态 IP 设置 |  小岛
+    vi/vim 命令地图 |  小岛
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -44,7 +44,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-ubuntu-static-ip" class="article article-type-post" itemscope
+  <article id="post-vi-vim" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -52,7 +52,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  ubuntu 18.04 LTS 静态 IP 设置
+  vi/vim 命令地图
 </h1>
  
 
@@ -61,7 +61,7 @@
 
     
     <div class="article-meta">
-      <a href="/2020/04/23/ubuntu-static-ip/" class="article-date">
+      <a href="/2020/04/23/vi-vim/" class="article-date">
   <time datetime="2020-04-22T16:00:00.000Z" itemprop="datePublished">2020-04-23</time>
 </a>
       
@@ -76,7 +76,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">207</span>
+            <span class="post-count">6</span>
         </span>
     </span>
 
@@ -96,8 +96,6 @@
 
     
     
-    <div class="tocbot"></div>
-
 
 
 
@@ -110,21 +108,12 @@
       
 
       
-      <h2 id="1-确认你要修改的网卡号"><a href="#1-确认你要修改的网卡号" class="headerlink" title="1. 确认你要修改的网卡号"></a>1. 确认你要修改的网卡号</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ ip addr</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">inet 127.0.0.1/8 scope host lo</span><br><span class="line">valid_lft forever preferred_lft forever</span><br><span class="line">inet6 ::1/128 scope host</span><br><span class="line">valid_lft forever preferred_lft forever</span><br><span class="line">2: eno1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">link/ether 00:0c:29:f1:b5:e1 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">inet 172.16.87.140/24 brd 172.16.87.255 scope global dynamic eno1</span><br><span class="line">valid_lft 1500sec preferred_lft 1500sec</span><br><span class="line">inet6 fe80::20c:29ff:fef1:b5e1/64 scope link</span><br><span class="line">valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+      <blockquote>
+<p>vi/vim 命令地图</p>
+</blockquote>
 <a id="more"></a>
 
-<h2 id="2-修改网卡配置文件"><a href="#2-修改网卡配置文件" class="headerlink" title="2. 修改网卡配置文件"></a>2. 修改网卡配置文件</h2><blockquote>
-<p>默认网络是使用DHCP<br>修改 <code>/etc/netplan/50-cloud-init.yaml</code> 文件</p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br><span class="line">  <span class="comment"># renderer: NetworkManager</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">eno1:</span></span><br><span class="line">      <span class="attr">dhcp4:</span> <span class="literal">no</span></span><br><span class="line">      <span class="attr">addresses:</span> <span class="string">[192.168.0.116/24]</span></span><br><span class="line">      <span class="attr">optional:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">gateway4:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">nameservers:</span></span><br><span class="line">        <span class="attr">addresses:</span> <span class="string">[114.114.114.114]</span></span><br><span class="line">        <span class="attr">search:</span> <span class="string">[]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-更新配置"><a href="#3-更新配置" class="headerlink" title="3. 更新配置"></a>3. 更新配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo netplan apply</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>使用 <code>ip addr</code> 检查新地址</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ip addr</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-测试网络"><a href="#4-测试网络" class="headerlink" title="4. 测试网络"></a>4. 测试网络</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ping baidu.com</span><br></pre></td></tr></table></figure>
+<p><img src="/images/vi-vim.jpg" alt="vi/vim 命令地图"></p>
 
       
       <!-- reward -->
@@ -193,7 +182,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/23/ubuntu-static-ip/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/23/vi-vim/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -211,10 +200,19 @@
   
   <nav class="article-nav">
     
-    
       <a href="/2020/04/23/ubuntu-unknown-block/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Unable to mount root fs on unknown-block(0,0)
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/04/22/ubuntu-tips/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Unable to mount root fs on unknown-block(0,0)</div>
+        <div class="article-nav-title">Ubuntu 使用中的一些小技巧</div>
       </a>
     
   </nav>

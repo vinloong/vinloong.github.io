@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-04-23T15:58:06.555Z</updated>
+  <updated>2020-04-23T16:16:43.404Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,17 +21,11 @@
     <link href="http://yoursite.com/2020/04/23/ubuntu-static-ip/"/>
     <id>http://yoursite.com/2020/04/23/ubuntu-static-ip/</id>
     <published>2020-04-22T16:00:00.000Z</published>
-    <updated>2020-04-23T15:58:06.555Z</updated>
+    <updated>2020-04-23T16:16:43.404Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;1-确认你要修改的网卡号&quot;&gt;&lt;a href=&quot;#1-确认你要修改的网卡号&quot; class=&quot;headerlink&quot; title=&quot;1. 确认你要修改的网卡号&quot;&gt;&lt;/a&gt;1. 确认你要修改的网卡号&lt;/h2&gt;&lt;figure class=&quot;highlight
-        
-      
+      &lt;h2 id=&quot;1-确认你要修改的网卡号&quot;&gt;&lt;a href=&quot;#1-确认你要修改的网卡号&quot; class=&quot;headerlink&quot; title=&quot;1. 确认你要修改的网卡号&quot;&gt;&lt;/a&gt;1. 确认你要修改的网卡号&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ip addr&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inet 127.0.0.1/8 scope host lo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;valid_lft forever preferred_lft forever&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inet6 ::1/128 scope host&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;valid_lft forever preferred_lft forever&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2: eno1: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;link/ether 00:0c:29:f1:b5:e1 brd ff:ff:ff:ff:ff:ff&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inet 172.16.87.140/24 brd 172.16.87.255 scope global dynamic eno1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;valid_lft 1500sec preferred_lft 1500sec&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inet6 fe80::20c:29ff:fef1:b5e1/64 scope link&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;valid_lft forever preferred_lft forever&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -52,20 +46,40 @@
     <link href="http://yoursite.com/2020/04/23/ubuntu-unknown-block/"/>
     <id>http://yoursite.com/2020/04/23/ubuntu-unknown-block/</id>
     <published>2020-04-22T16:00:00.000Z</published>
-    <updated>2020-04-23T15:23:11.283Z</updated>
+    <updated>2020-04-23T16:17:03.349Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;blockquote&gt;
+      &lt;blockquote&gt;
 &lt;p&gt;解决方案:&lt;br&gt;使用引导盘进入系统，打开控制台&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span
-        
-      
+    
+    </summary>
+    
+    
+      <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/Linux/"/>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
+    
+      <category term="ubuntu" scheme="http://yoursite.com/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vi/vim 命令地图</title>
+    <link href="http://yoursite.com/2020/04/23/vi-vim/"/>
+    <id>http://yoursite.com/2020/04/23/vi-vim/</id>
+    <published>2020-04-22T16:00:00.000Z</published>
+    <updated>2020-04-23T16:17:42.909Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;vi/vim 命令地图&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     

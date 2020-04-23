@@ -576,6 +576,8 @@
     <title>ubuntu 18.04 LTS 静态 IP 设置</title>
     <url>/2020/04/23/ubuntu-static-ip/</url>
     <content><![CDATA[<h2 id="1-确认你要修改的网卡号"><a href="#1-确认你要修改的网卡号" class="headerlink" title="1. 确认你要修改的网卡号"></a>1. 确认你要修改的网卡号</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ip addr</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">inet 127.0.0.1/8 scope host lo</span><br><span class="line">valid_lft forever preferred_lft forever</span><br><span class="line">inet6 ::1/128 scope host</span><br><span class="line">valid_lft forever preferred_lft forever</span><br><span class="line">2: eno1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">link/ether 00:0c:29:f1:b5:e1 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">inet 172.16.87.140/24 brd 172.16.87.255 scope global dynamic eno1</span><br><span class="line">valid_lft 1500sec preferred_lft 1500sec</span><br><span class="line">inet6 fe80::20c:29ff:fef1:b5e1/64 scope link</span><br><span class="line">valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
 <h2 id="2-修改网卡配置文件"><a href="#2-修改网卡配置文件" class="headerlink" title="2. 修改网卡配置文件"></a>2. 修改网卡配置文件</h2><blockquote>
 <p>默认网络是使用DHCP<br>修改 <code>/etc/netplan/50-cloud-init.yaml</code> 文件</p>
 </blockquote>
@@ -604,13 +606,32 @@
     <content><![CDATA[<blockquote>
 <p>解决方案:<br>使用引导盘进入系统，打开控制台</p>
 </blockquote>
+<a id="more"></a>
+
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo fdisk -l</span><br><span class="line">sudo mount /dev/sdax /mnt <span class="comment"># x: 1,2,3</span></span><br><span class="line">sudo mount --<span class="built_in">bind</span> /dev /mnt/dev</span><br><span class="line">sudo mount --<span class="built_in">bind</span> /dev/pts /mnt/dev/pts</span><br><span class="line">sudo mount --<span class="built_in">bind</span> /proc /mnt/proc</span><br><span class="line">sudo mount --<span class="built_in">bind</span> /sys /mnt/sys</span><br><span class="line">sudo chroot /mnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看内核版本：</span></span><br><span class="line">dpkg --list | grep linux-image</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可能得到多个内核版本（比如4.10.0-28-generic，4.13.0-32-generic）为保险，则下面的命令改为对应的每个内核号运行一次，输入：</span></span><br><span class="line"></span><br><span class="line">update-initramfs -u -k 4.10.0-28-generic</span><br><span class="line">update-initramfs -u -k 4.13.0-32-generic</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新grub：</span></span><br><span class="line">update-grub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启exit</span></span><br><span class="line"></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
-
-
 
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1 List your partitions with sudo fdisk -l and choose the right one to mount:</span></span><br><span class="line"></span><br><span class="line">sudo mount /dev/sdaX /mnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Where sdX is your Ubuntu installation on your HDD. If you have an EFI boot system you need to mount your EFI partition as well.</span></span><br><span class="line"></span><br><span class="line">sudo mount /dev/sdY /mnt/boot/efi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 Now mount the following and chroot into your install</span></span><br><span class="line"></span><br><span class="line">sudo mount -o <span class="built_in">bind</span> /dev /mnt/dev</span><br><span class="line">sudo mount -o <span class="built_in">bind</span> /dev/pts /mnt/dev/pts</span><br><span class="line">sudo mount -t sysfs /sys /mnt/sys</span><br><span class="line">sudo mount -t proc /proc /mnt/proc</span><br><span class="line">sudo chroot /mnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 Create a update-initramfs and update-grub. Make sure you put the right version number into the next line, you can find this by dpkg --list | grep linux-image.</span></span><br><span class="line"></span><br><span class="line">update-initramfs -u -k 4.10.0-38-generic</span><br><span class="line"></span><br><span class="line">update-grub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4 rebootexit</span></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
 
 
+]]></content>
+      <categories>
+        <category>技术</category>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vi/vim 命令地图</title>
+    <url>/2020/04/23/vi-vim/</url>
+    <content><![CDATA[<blockquote>
+<p>vi/vim 命令地图</p>
+</blockquote>
+<a id="more"></a>
+
+<p><img src="/images/vi-vim.jpg" alt="vi/vim 命令地图"></p>
 ]]></content>
       <categories>
         <category>技术</category>
