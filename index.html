@@ -83,6 +83,171 @@
     
     
     
+    <article id="post-ubuntu-static-ip" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/23/ubuntu-static-ip/"
+    >ubuntu 18.04 LTS 静态 IP 设置</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/23/ubuntu-static-ip/" class="article-date">
+  <time datetime="2020-04-22T16:00:00.000Z" itemprop="datePublished">2020-04-23</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a> / <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/Linux/">Linux</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="1-确认你要修改的网卡号"><a href="#1-确认你要修改的网卡号" class="headerlink" title="1. 确认你要修改的网卡号"></a>1. 确认你要修改的网卡号</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ ip addr</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">inet 127.0.0.1/8 scope host lo</span><br><span class="line">valid_lft forever preferred_lft forever</span><br><span class="line">inet6 ::1/128 scope host</span><br><span class="line">valid_lft forever preferred_lft forever</span><br><span class="line">2: eno1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">link/ether 00:0c:29:f1:b5:e1 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">inet 172.16.87.140/24 brd 172.16.87.255 scope global dynamic eno1</span><br><span class="line">valid_lft 1500sec preferred_lft 1500sec</span><br><span class="line">inet6 fe80::20c:29ff:fef1:b5e1/64 scope link</span><br><span class="line">valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<h2 id="2-修改网卡配置文件"><a href="#2-修改网卡配置文件" class="headerlink" title="2. 修改网卡配置文件"></a>2. 修改网卡配置文件</h2><blockquote>
+<p>默认网络是使用DHCP<br>修改 <code>/etc/netplan/50-cloud-init.yaml</code> 文件</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br><span class="line">  <span class="comment"># renderer: NetworkManager</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">eno1:</span></span><br><span class="line">      <span class="attr">dhcp4:</span> <span class="literal">no</span></span><br><span class="line">      <span class="attr">addresses:</span> <span class="string">[192.168.0.116/24]</span></span><br><span class="line">      <span class="attr">optional:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">gateway4:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">nameservers:</span></span><br><span class="line">        <span class="attr">addresses:</span> <span class="string">[114.114.114.114]</span></span><br><span class="line">        <span class="attr">search:</span> <span class="string">[]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-更新配置"><a href="#3-更新配置" class="headerlink" title="3. 更新配置"></a>3. 更新配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo netplan apply</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <code>ip addr</code> 检查新地址</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ip addr</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-测试网络"><a href="#4-测试网络" class="headerlink" title="4. 测试网络"></a>4. 测试网络</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ping baidu.com</span><br></pre></td></tr></table></figure>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-ubuntu-unknown-block" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/23/ubuntu-unknown-block/"
+    >Unable to mount root fs on unknown-block(0,0)</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/23/ubuntu-unknown-block/" class="article-date">
+  <time datetime="2020-04-22T16:00:00.000Z" itemprop="datePublished">2020-04-23</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a> / <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/Linux/">Linux</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <blockquote>
+<p>解决方案:<br>使用引导盘进入系统，打开控制台</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk -l</span><br><span class="line">sudo mount /dev/sdax /mnt <span class="comment"># x: 1,2,3</span></span><br><span class="line">sudo mount --<span class="built_in">bind</span> /dev /mnt/dev</span><br><span class="line">sudo mount --<span class="built_in">bind</span> /dev/pts /mnt/dev/pts</span><br><span class="line">sudo mount --<span class="built_in">bind</span> /proc /mnt/proc</span><br><span class="line">sudo mount --<span class="built_in">bind</span> /sys /mnt/sys</span><br><span class="line">sudo chroot /mnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看内核版本：</span></span><br><span class="line">dpkg --list | grep linux-image</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可能得到多个内核版本（比如4.10.0-28-generic，4.13.0-32-generic）为保险，则下面的命令改为对应的每个内核号运行一次，输入：</span></span><br><span class="line"></span><br><span class="line">update-initramfs -u -k 4.10.0-28-generic</span><br><span class="line">update-initramfs -u -k 4.13.0-32-generic</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新grub：</span></span><br><span class="line">update-grub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启exit</span></span><br><span class="line"></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 List your partitions with sudo fdisk -l and choose the right one to mount:</span></span><br><span class="line"></span><br><span class="line">sudo mount /dev/sdaX /mnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Where sdX is your Ubuntu installation on your HDD. If you have an EFI boot system you need to mount your EFI partition as well.</span></span><br><span class="line"></span><br><span class="line">sudo mount /dev/sdY /mnt/boot/efi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 Now mount the following and chroot into your install</span></span><br><span class="line"></span><br><span class="line">sudo mount -o <span class="built_in">bind</span> /dev /mnt/dev</span><br><span class="line">sudo mount -o <span class="built_in">bind</span> /dev/pts /mnt/dev/pts</span><br><span class="line">sudo mount -t sysfs /sys /mnt/sys</span><br><span class="line">sudo mount -t proc /proc /mnt/proc</span><br><span class="line">sudo chroot /mnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 Create a update-initramfs and update-grub. Make sure you put the right version number into the next line, you can find this by dpkg --list | grep linux-image.</span></span><br><span class="line"></span><br><span class="line">update-initramfs -u -k 4.10.0-38-generic</span><br><span class="line"></span><br><span class="line">update-grub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4 rebootexit</span></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+
+
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-ubuntu-tips" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
