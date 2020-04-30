@@ -573,73 +573,100 @@
       </tags>
   </entry>
   <entry>
-    <title>ubuntu 18.04 LTS 静态 IP 设置</title>
-    <url>/2020/04/23/ubuntu-static-ip/</url>
-    <content><![CDATA[<h2 id="1-确认你要修改的网卡号"><a href="#1-确认你要修改的网卡号" class="headerlink" title="1. 确认你要修改的网卡号"></a>1. 确认你要修改的网卡号</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ip addr</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">inet 127.0.0.1/8 scope host lo</span><br><span class="line">valid_lft forever preferred_lft forever</span><br><span class="line">inet6 ::1/128 scope host</span><br><span class="line">valid_lft forever preferred_lft forever</span><br><span class="line">2: eno1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">link/ether 00:0c:29:f1:b5:e1 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">inet 172.16.87.140/24 brd 172.16.87.255 scope global dynamic eno1</span><br><span class="line">valid_lft 1500sec preferred_lft 1500sec</span><br><span class="line">inet6 fe80::20c:29ff:fef1:b5e1/64 scope link</span><br><span class="line">valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+    <title>kafka 一般操作</title>
+    <url>/2020/04/30/kafka-common/</url>
+    <content><![CDATA[<h2 id="创建-topic"><a href="#创建-topic" class="headerlink" title="创建 topic"></a>创建 topic</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --create --topic test_topic --partitions 1  --replication-factor 1</span><br><span class="line">WARNING: Due to limitations <span class="keyword">in</span> metric names, topics with a period (<span class="string">'.'</span>) or underscore (<span class="string">'_'</span>) could collide. To avoid issues it is best to use either, but not both.</span><br><span class="line">Created topic <span class="string">"test_topic"</span>.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新版本的kafka 参数 --zookeeper 被 --bootstrap-server 替换了</span></span><br><span class="line">&gt; bin/kafka-topics.sh --create --bootstrap-server node35:9092,node36:9092,node37:9092 --replication-factor 1 --partitions 1 --topic test_topic</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 
-<h2 id="2-修改网卡配置文件"><a href="#2-修改网卡配置文件" class="headerlink" title="2. 修改网卡配置文件"></a>2. 修改网卡配置文件</h2><blockquote>
-<p>默认网络是使用DHCP<br>修改 <code>/etc/netplan/50-cloud-init.yaml</code> 文件</p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br><span class="line">  <span class="comment"># renderer: NetworkManager</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">eno1:</span></span><br><span class="line">      <span class="attr">dhcp4:</span> <span class="literal">no</span></span><br><span class="line">      <span class="attr">addresses:</span> <span class="string">[192.168.0.116/24]</span></span><br><span class="line">      <span class="attr">optional:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">gateway4:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">nameservers:</span></span><br><span class="line">        <span class="attr">addresses:</span> <span class="string">[114.114.114.114]</span></span><br><span class="line">        <span class="attr">search:</span> <span class="string">[]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-更新配置"><a href="#3-更新配置" class="headerlink" title="3. 更新配置"></a>3. 更新配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo netplan apply</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>使用 <code>ip addr</code> 检查新地址</p>
+<p>partitions 指定topic分区数</p>
+<p>replication-factor 指定topic每个分区的副本数</p>
+<ul>
+<li>partitions分区数:<ul>
+<li>partitions ：分区数，控制topic将分片成多少个。可以显示指定，如果不指定则会使用broker(server.properties)中的num.partitions配置的数量</li>
+<li>虽然增加分区数可以提供kafka集群的吞吐量、但是过多的分区数或者或是单台服务器上的分区数过多，会增加不可用及延迟的风险。因为多的分区数，意味着需要打开更多的文件句柄、增加点到点的延时、增加客户端的内存消耗。</li>
+<li>分区数也限制了consumer的并行度，即限制了并行consumer消息的线程数不能大于分区数</li>
+<li>分区数也限制了producer发送消息是指定的分区。如创建topic时分区设置为1，producer发送消息时通过自定义的分区方法指定分区为2或以上的数都会出错的；这种情况可以通过alter –partitions 来增加分区数。</li>
+</ul>
+</li>
+<li>replication-factor副本<ul>
+<li>replication factor 控制消息保存在几个broker(服务器)上，一般情况下等于broker的个数。</li>
+<li>如果没有在创建时显示指定或通过API向一个不存在的topic生产消息时会使用broker(server.properties)中的default.replication.factor配置的数量</li>
+</ul>
+</li>
+</ul>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ip addr</span><br></pre></td></tr></table></figure>
+<h2 id="查看-topic-列表"><a href="#查看-topic-列表" class="headerlink" title="查看 topic 列表"></a>查看 topic 列表</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --list</span><br><span class="line">test_topic</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新版本的kafka 参数 --zookeeper 被 --bootstrap-server 替换了</span></span><br><span class="line">&gt; bin/kafka-topics.sh --list --bootstrap-server node35:9092,node36:9092,node37:9092</span><br></pre></td></tr></table></figure>
 
-<h2 id="4-测试网络"><a href="#4-测试网络" class="headerlink" title="4. 测试网络"></a>4. 测试网络</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ping baidu.com</span><br></pre></td></tr></table></figure>
+<h2 id="查看指定topic信息"><a href="#查看指定topic信息" class="headerlink" title="查看指定topic信息"></a>查看指定topic信息</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --describe --topic test_topic</span><br><span class="line"><span class="comment"># </span></span><br><span class="line">&gt; bin/kafka-topics.sh --describe --bootstrap-server node35:9092,node36:9092,node37:9092 --topic test_topic</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="控制台向topic生产数据"><a href="#控制台向topic生产数据" class="headerlink" title="控制台向topic生产数据"></a>控制台向topic生产数据</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; bin/kafka-console-producer.sh --broker-list node35:9092,node36:9092,node37:9092 --topic test_topic</span><br><span class="line"></span><br><span class="line">&gt; bin/kafka-console-producer.sh --bootstrap-server node35:9092,node36:9092,node37:9092 --topic test_topic</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="控制台消费topic的数据"><a href="#控制台消费topic的数据" class="headerlink" title="控制台消费topic的数据"></a>控制台消费topic的数据</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; bin/kafka-console-consumer.sh  --zookeeper node36:2181,node38:2181  --topic test_topic --from-beginning</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line">&gt; bin/kafka-console-consumer.sh --bootstrap-server node35:9092,node36:9092,node37:9092 --topic test_topic --from-beginning</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="扩展topic分区数"><a href="#扩展topic分区数" class="headerlink" title="扩展topic分区数"></a>扩展topic分区数</h2><blockquote>
+<p>查看现在的分区情况</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --describe --topic test_topic</span><br><span class="line">Topic:test_topic    PartitionCount:1        ReplicationFactor:1     Configs:</span><br><span class="line">        Topic: test_topic   Partition: 0    Leader: 1002    Replicas: 1002  Isr: 1002</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>只有一个分区，下面执行命令增加到5个</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181  --alter --topic test_topic --partitions 5</span><br><span class="line">WARNING: If partitions are increased <span class="keyword">for</span> a topic that has a key, the partition logic or ordering of the messages will be affected</span><br><span class="line">Adding partitions succeeded!</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>再查看 topic 信息</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --describe --topic test_topic</span><br><span class="line">Topic:test_topic    PartitionCount:5        ReplicationFactor:1     Configs:</span><br><span class="line">        Topic: test_topic   Partition: 0    Leader: 1002    Replicas: 1002  Isr: 1002</span><br><span class="line">        Topic: test_topic   Partition: 1    Leader: 1003    Replicas: 1003  Isr: 1003</span><br><span class="line">        Topic: test_topic   Partition: 2    Leader: 1001    Replicas: 1001  Isr: 1001</span><br><span class="line">        Topic: test_topic   Partition: 3    Leader: 1002    Replicas: 1002  Isr: 1002</span><br><span class="line">        Topic: test_topic   Partition: 4    Leader: 1003    Replicas: 1003  Isr: 1003</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="删除topic"><a href="#删除topic" class="headerlink" title="删除topic"></a>删除topic</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --delete --topic test_topic</span><br><span class="line">Topic test_topic is marked <span class="keyword">for</span> deletion.</span><br><span class="line">Note: This will have no impact <span class="keyword">if</span> delete.topic.enable is not <span class="built_in">set</span> to <span class="literal">true</span>.</span><br><span class="line"></span><br><span class="line">&gt; bin/kafka-topics.sh --bootstrap-server broker_host:port --delete --topic my_topic_name</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> <strong>慎用，只会删除zookeeper中的元数据，消息文件须手动删除</strong></p>
+</blockquote>
+<h2 id="修改副本数量"><a href="#修改副本数量" class="headerlink" title="修改副本数量"></a>修改副本数量</h2><blockquote>
+<p>先查看topic 的详细信息</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --describe --topic test_topic</span><br><span class="line"></span><br><span class="line">Topic:test_topic    PartitionCount:5        ReplicationFactor:1     Configs:</span><br><span class="line">        Topic: test_topic   Partition: 0    Leader: 1002    Replicas: 1002  Isr: 1002</span><br><span class="line">        Topic: test_topic   Partition: 1    Leader: 1003    Replicas: 1003  Isr: 1003</span><br><span class="line">        Topic: test_topic   Partition: 2    Leader: 1001    Replicas: 1001  Isr: 1001</span><br><span class="line">        Topic: test_topic   Partition: 3    Leader: 1002    Replicas: 1002  Isr: 1002</span><br><span class="line">        Topic: test_topic   Partition: 4    Leader: 1003    Replicas: 1003  Isr: 1003</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>根据 topic 的分区情况自己修改 partitions-topic.json 文件进行配置</p>
+<p>现在可以看到  test_topic  partitions 数量只有 1个，现在我们增加到 2个:</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">"partitions"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"test_topic"</span>,</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="attr">"replicas"</span>: [<span class="number">1002</span>,<span class="number">1003</span>]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"test_topic"</span>,</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">"replicas"</span>: [<span class="number">1003</span>,<span class="number">1001</span>]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"test_topic"</span>,</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">2</span>,</span><br><span class="line">            <span class="attr">"replicas"</span>: [<span class="number">1001</span>,<span class="number">1002</span>]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"test_topic"</span>,</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">3</span>,</span><br><span class="line">            <span class="attr">"replicas"</span>: [<span class="number">1002</span>,<span class="number">1003</span>]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"test_topic"</span>,</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">4</span>,</span><br><span class="line">            <span class="attr">"replicas"</span>: [<span class="number">1003</span>,<span class="number">1001</span>]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>执行副本搬迁</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bin/kafka-reassign-partitions.sh --zookeeper  node36:2181,node38:2181 --reassignment-json-file replications-topic.json --execute</span><br><span class="line"></span><br><span class="line">Current partition replica assignment</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"version"</span>:1,<span class="string">"partitions"</span>:[&#123;<span class="string">"topic"</span>:<span class="string">"test_topic"</span>,<span class="string">"partition"</span>:0,<span class="string">"replicas"</span>:[1002]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"test_topic"</span>,<span class="string">"partition"</span>:3,<span class="string">"replicas"</span>:[1002]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"test_topic"</span>,<span class="string">"partition"</span>:2,<span class="string">"replicas"</span>:[1001]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"test_topic"</span>,<span class="string">"partition"</span>:1,<span class="string">"replicas"</span>:[1003]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"test_topic"</span>,<span class="string">"partition"</span>:4,<span class="string">"replicas"</span>:[1003]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">Save this to use as the --reassignment-json-file option during rollback</span><br><span class="line">Successfully started reassignment of partitions.</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>查看搬迁情况</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bin/kafka-reassign-partitions.sh --zookeeper node36:2181,node38:2181 --reassignment-json-file partitions-topic.json --verify</span><br><span class="line"></span><br><span class="line">Status of partition reassignment: </span><br><span class="line">Reassignment of partition [test_topic,0] completed successfully</span><br><span class="line">Reassignment of partition [test_topic,3] completed successfully</span><br><span class="line">Reassignment of partition [test_topic,1] completed successfully</span><br><span class="line">Reassignment of partition [test_topic,2] completed successfully</span><br><span class="line">Reassignment of partition [test_topic,4] completed successfully</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>现在查看topic 信息</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --describe --topic test_topic</span><br><span class="line"></span><br><span class="line">Topic:anxinyun_alarm    PartitionCount:5        ReplicationFactor:2     Configs:</span><br><span class="line">        Topic: test_topic   Partition: 0    Leader: 1002    Replicas: 1002,1003     Isr: 1002,1003</span><br><span class="line">        Topic: test_topic   Partition: 1    Leader: 1003    Replicas: 1003,1001     Isr: 1003,1001</span><br><span class="line">        Topic: test_topic   Partition: 2    Leader: 1001    Replicas: 1001,1002     Isr: 1001,1002</span><br><span class="line">        Topic: test_topic   Partition: 3    Leader: 1002    Replicas: 1002,1003     Isr: 1002,1003</span><br><span class="line">        Topic: test_topic   Partition: 4    Leader: 1003    Replicas: 1003,1001     Isr: 1003,1001</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>技术</category>
-        <category>Linux</category>
+        <category>kafka</category>
       </categories>
       <tags>
-        <tag>linux</tag>
-        <tag>ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Unable to mount root fs on unknown-block(0,0)</title>
-    <url>/2020/04/23/ubuntu-unknown-block/</url>
-    <content><![CDATA[<blockquote>
-<p>解决方案:<br>使用引导盘进入系统，打开控制台</p>
-</blockquote>
-<a id="more"></a>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo fdisk -l</span><br><span class="line">sudo mount /dev/sdax /mnt <span class="comment"># x: 1,2,3</span></span><br><span class="line">sudo mount --<span class="built_in">bind</span> /dev /mnt/dev</span><br><span class="line">sudo mount --<span class="built_in">bind</span> /dev/pts /mnt/dev/pts</span><br><span class="line">sudo mount --<span class="built_in">bind</span> /proc /mnt/proc</span><br><span class="line">sudo mount --<span class="built_in">bind</span> /sys /mnt/sys</span><br><span class="line">sudo chroot /mnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看内核版本：</span></span><br><span class="line">dpkg --list | grep linux-image</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可能得到多个内核版本（比如4.10.0-28-generic，4.13.0-32-generic）为保险，则下面的命令改为对应的每个内核号运行一次，输入：</span></span><br><span class="line"></span><br><span class="line">update-initramfs -u -k 4.10.0-28-generic</span><br><span class="line">update-initramfs -u -k 4.13.0-32-generic</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新grub：</span></span><br><span class="line">update-grub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启exit</span></span><br><span class="line"></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1 List your partitions with sudo fdisk -l and choose the right one to mount:</span></span><br><span class="line"></span><br><span class="line">sudo mount /dev/sdaX /mnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Where sdX is your Ubuntu installation on your HDD. If you have an EFI boot system you need to mount your EFI partition as well.</span></span><br><span class="line"></span><br><span class="line">sudo mount /dev/sdY /mnt/boot/efi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 Now mount the following and chroot into your install</span></span><br><span class="line"></span><br><span class="line">sudo mount -o <span class="built_in">bind</span> /dev /mnt/dev</span><br><span class="line">sudo mount -o <span class="built_in">bind</span> /dev/pts /mnt/dev/pts</span><br><span class="line">sudo mount -t sysfs /sys /mnt/sys</span><br><span class="line">sudo mount -t proc /proc /mnt/proc</span><br><span class="line">sudo chroot /mnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 Create a update-initramfs and update-grub. Make sure you put the right version number into the next line, you can find this by dpkg --list | grep linux-image.</span></span><br><span class="line"></span><br><span class="line">update-initramfs -u -k 4.10.0-38-generic</span><br><span class="line"></span><br><span class="line">update-grub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4 rebootexit</span></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>技术</category>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vi/vim 命令地图</title>
-    <url>/2020/04/23/vi-vim/</url>
-    <content><![CDATA[<blockquote>
-<p>vi/vim 命令地图</p>
-</blockquote>
-<a id="more"></a>
-
-<p><img src="/images/vi-vim.jpg" alt="vi/vim 命令地图"></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>ubuntu</tag>
+        <tag>kafka</tag>
       </tags>
   </entry>
 </search>
