@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="生活,工作,故事,代码,啤酒" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    kafka 一般操作 |  小岛
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="小岛" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-kafka-common" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  kafka 一般操作
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/30/kafka-common/" class="article-date">
+  <time datetime="2020-04-29T16:00:00.000Z" itemprop="datePublished">2020-04-30</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a> / <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/kafka/">kafka</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="创建-topic"><a href="#创建-topic" class="headerlink" title="创建 topic"></a>创建 topic</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --create --topic test_topic --partitions 1  --replication-factor 1</span><br><span class="line">WARNING: Due to limitations <span class="keyword">in</span> metric names, topics with a period (<span class="string">'.'</span>) or underscore (<span class="string">'_'</span>) could collide. To avoid issues it is best to use either, but not both.</span><br><span class="line">Created topic <span class="string">"test_topic"</span>.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新版本的kafka 参数 --zookeeper 被 --bootstrap-server 替换了</span></span><br><span class="line">&gt; bin/kafka-topics.sh --create --bootstrap-server node35:9092,node36:9092,node37:9092 --replication-factor 1 --partitions 1 --topic test_topic</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<blockquote>
+<p>partitions 指定topic分区数</p>
+<p>replication-factor 指定topic每个分区的副本数</p>
+<ul>
+<li>partitions分区数:<ul>
+<li>partitions ：分区数，控制topic将分片成多少个。可以显示指定，如果不指定则会使用broker(server.properties)中的num.partitions配置的数量</li>
+<li>虽然增加分区数可以提供kafka集群的吞吐量、但是过多的分区数或者或是单台服务器上的分区数过多，会增加不可用及延迟的风险。因为多的分区数，意味着需要打开更多的文件句柄、增加点到点的延时、增加客户端的内存消耗。</li>
+<li>分区数也限制了consumer的并行度，即限制了并行consumer消息的线程数不能大于分区数</li>
+<li>分区数也限制了producer发送消息是指定的分区。如创建topic时分区设置为1，producer发送消息时通过自定义的分区方法指定分区为2或以上的数都会出错的；这种情况可以通过alter –partitions 来增加分区数。</li>
+</ul>
+</li>
+<li>replication-factor副本<ul>
+<li>replication factor 控制消息保存在几个broker(服务器)上，一般情况下等于broker的个数。</li>
+<li>如果没有在创建时显示指定或通过API向一个不存在的topic生产消息时会使用broker(server.properties)中的default.replication.factor配置的数量</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="查看-topic-列表"><a href="#查看-topic-列表" class="headerlink" title="查看 topic 列表"></a>查看 topic 列表</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --list</span><br><span class="line">test_topic</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新版本的kafka 参数 --zookeeper 被 --bootstrap-server 替换了</span></span><br><span class="line">&gt; bin/kafka-topics.sh --list --bootstrap-server node35:9092,node36:9092,node37:9092</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看指定topic信息"><a href="#查看指定topic信息" class="headerlink" title="查看指定topic信息"></a>查看指定topic信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --describe --topic test_topic</span><br><span class="line"><span class="comment"># </span></span><br><span class="line">&gt; bin/kafka-topics.sh --describe --bootstrap-server node35:9092,node36:9092,node37:9092 --topic test_topic</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="控制台向topic生产数据"><a href="#控制台向topic生产数据" class="headerlink" title="控制台向topic生产数据"></a>控制台向topic生产数据</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; bin/kafka-console-producer.sh --broker-list node35:9092,node36:9092,node37:9092 --topic test_topic</span><br><span class="line"></span><br><span class="line">&gt; bin/kafka-console-producer.sh --bootstrap-server node35:9092,node36:9092,node37:9092 --topic test_topic</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="控制台消费topic的数据"><a href="#控制台消费topic的数据" class="headerlink" title="控制台消费topic的数据"></a>控制台消费topic的数据</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; bin/kafka-console-consumer.sh  --zookeeper node36:2181,node38:2181  --topic test_topic --from-beginning</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line">&gt; bin/kafka-console-consumer.sh --bootstrap-server node35:9092,node36:9092,node37:9092 --topic test_topic --from-beginning</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="扩展topic分区数"><a href="#扩展topic分区数" class="headerlink" title="扩展topic分区数"></a>扩展topic分区数</h2><blockquote>
+<p>查看现在的分区情况</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --describe --topic test_topic</span><br><span class="line">Topic:test_topic    PartitionCount:1        ReplicationFactor:1     Configs:</span><br><span class="line">        Topic: test_topic   Partition: 0    Leader: 1002    Replicas: 1002  Isr: 1002</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>只有一个分区，下面执行命令增加到5个</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181  --alter --topic test_topic --partitions 5</span><br><span class="line">WARNING: If partitions are increased <span class="keyword">for</span> a topic that has a key, the partition logic or ordering of the messages will be affected</span><br><span class="line">Adding partitions succeeded!</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>再查看 topic 信息</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --describe --topic test_topic</span><br><span class="line">Topic:test_topic    PartitionCount:5        ReplicationFactor:1     Configs:</span><br><span class="line">        Topic: test_topic   Partition: 0    Leader: 1002    Replicas: 1002  Isr: 1002</span><br><span class="line">        Topic: test_topic   Partition: 1    Leader: 1003    Replicas: 1003  Isr: 1003</span><br><span class="line">        Topic: test_topic   Partition: 2    Leader: 1001    Replicas: 1001  Isr: 1001</span><br><span class="line">        Topic: test_topic   Partition: 3    Leader: 1002    Replicas: 1002  Isr: 1002</span><br><span class="line">        Topic: test_topic   Partition: 4    Leader: 1003    Replicas: 1003  Isr: 1003</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="删除topic"><a href="#删除topic" class="headerlink" title="删除topic"></a>删除topic</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --delete --topic test_topic</span><br><span class="line">Topic test_topic is marked <span class="keyword">for</span> deletion.</span><br><span class="line">Note: This will have no impact <span class="keyword">if</span> delete.topic.enable is not <span class="built_in">set</span> to <span class="literal">true</span>.</span><br><span class="line"></span><br><span class="line">&gt; bin/kafka-topics.sh --bootstrap-server broker_host:port --delete --topic my_topic_name</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> <strong>慎用，只会删除zookeeper中的元数据，消息文件须手动删除</strong></p>
+</blockquote>
+<h2 id="修改副本数量"><a href="#修改副本数量" class="headerlink" title="修改副本数量"></a>修改副本数量</h2><blockquote>
+<p>先查看topic 的详细信息</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --describe --topic test_topic</span><br><span class="line"></span><br><span class="line">Topic:test_topic    PartitionCount:5        ReplicationFactor:1     Configs:</span><br><span class="line">        Topic: test_topic   Partition: 0    Leader: 1002    Replicas: 1002  Isr: 1002</span><br><span class="line">        Topic: test_topic   Partition: 1    Leader: 1003    Replicas: 1003  Isr: 1003</span><br><span class="line">        Topic: test_topic   Partition: 2    Leader: 1001    Replicas: 1001  Isr: 1001</span><br><span class="line">        Topic: test_topic   Partition: 3    Leader: 1002    Replicas: 1002  Isr: 1002</span><br><span class="line">        Topic: test_topic   Partition: 4    Leader: 1003    Replicas: 1003  Isr: 1003</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>根据 topic 的分区情况自己修改 partitions-topic.json 文件进行配置</p>
+<p>现在可以看到  test_topic  partitions 数量只有 1个，现在我们增加到 2个:</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">"partitions"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"test_topic"</span>,</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="attr">"replicas"</span>: [<span class="number">1002</span>,<span class="number">1003</span>]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"test_topic"</span>,</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">"replicas"</span>: [<span class="number">1003</span>,<span class="number">1001</span>]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"test_topic"</span>,</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">2</span>,</span><br><span class="line">            <span class="attr">"replicas"</span>: [<span class="number">1001</span>,<span class="number">1002</span>]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"test_topic"</span>,</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">3</span>,</span><br><span class="line">            <span class="attr">"replicas"</span>: [<span class="number">1002</span>,<span class="number">1003</span>]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"test_topic"</span>,</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">4</span>,</span><br><span class="line">            <span class="attr">"replicas"</span>: [<span class="number">1003</span>,<span class="number">1001</span>]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>执行副本搬迁</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ bin/kafka-reassign-partitions.sh --zookeeper  node36:2181,node38:2181 --reassignment-json-file replications-topic.json --execute</span><br><span class="line"></span><br><span class="line">Current partition replica assignment</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"version"</span>:1,<span class="string">"partitions"</span>:[&#123;<span class="string">"topic"</span>:<span class="string">"test_topic"</span>,<span class="string">"partition"</span>:0,<span class="string">"replicas"</span>:[1002]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"test_topic"</span>,<span class="string">"partition"</span>:3,<span class="string">"replicas"</span>:[1002]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"test_topic"</span>,<span class="string">"partition"</span>:2,<span class="string">"replicas"</span>:[1001]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"test_topic"</span>,<span class="string">"partition"</span>:1,<span class="string">"replicas"</span>:[1003]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"test_topic"</span>,<span class="string">"partition"</span>:4,<span class="string">"replicas"</span>:[1003]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">Save this to use as the --reassignment-json-file option during rollback</span><br><span class="line">Successfully started reassignment of partitions.</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>查看搬迁情况</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ bin/kafka-reassign-partitions.sh --zookeeper node36:2181,node38:2181 --reassignment-json-file partitions-topic.json --verify</span><br><span class="line"></span><br><span class="line">Status of partition reassignment: </span><br><span class="line">Reassignment of partition [test_topic,0] completed successfully</span><br><span class="line">Reassignment of partition [test_topic,3] completed successfully</span><br><span class="line">Reassignment of partition [test_topic,1] completed successfully</span><br><span class="line">Reassignment of partition [test_topic,2] completed successfully</span><br><span class="line">Reassignment of partition [test_topic,4] completed successfully</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>现在查看topic 信息</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --describe --topic test_topic</span><br><span class="line"></span><br><span class="line">Topic:anxinyun_alarm    PartitionCount:5        ReplicationFactor:2     Configs:</span><br><span class="line">        Topic: test_topic   Partition: 0    Leader: 1002    Replicas: 1002,1003     Isr: 1002,1003</span><br><span class="line">        Topic: test_topic   Partition: 1    Leader: 1003    Replicas: 1003,1001     Isr: 1003,1001</span><br><span class="line">        Topic: test_topic   Partition: 2    Leader: 1001    Replicas: 1001,1002     Isr: 1001,1002</span><br><span class="line">        Topic: test_topic   Partition: 3    Leader: 1002    Replicas: 1002,1003     Isr: 1002,1003</span><br><span class="line">        Topic: test_topic   Partition: 4    Leader: 1003    Replicas: 1003,1001     Isr: 1003,1001</span><br></pre></td></tr></table></figure>
+
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong>
+              本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/30/kafka-common/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kafka/" rel="tag">kafka</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/04/22/ubuntu-tips/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Ubuntu 使用中的一些小技巧</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '1NzunV96zMn1z5KKWwmrX7qX-gzGzoHsz',
+        app_key: '0GzaCmIldlSgQDmJqCM2nrgo',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2020
+        <i class="ri-heart-fill heart_icon"></i> dragon
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="小岛"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+<!-- 复制 -->
+
+  
+<link rel="stylesheet" href="/css/clipboard.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=141609&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        left: 150px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>
