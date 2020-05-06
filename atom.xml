@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lingwinloong.com/"/>
-  <updated>2020-05-05T08:10:17.595Z</updated>
+  <updated>2020-04-30T10:01:25.327Z</updated>
   <id>http://lingwinloong.com/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>kafka 一般操作</title>
+    <link href="http://lingwinloong.com/2020/04/30/kafka-common/"/>
+    <id>http://lingwinloong.com/2020/04/30/kafka-common/</id>
+    <published>2020-04-29T16:00:00.000Z</published>
+    <updated>2020-04-30T10:01:25.327Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;创建-topic&quot;&gt;&lt;a href=&quot;#创建-topic&quot; class=&quot;headerlink&quot; title=&quot;创建 topic&quot;&gt;&lt;/a&gt;创建 topic&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; bin/kafka-topics.sh --zookeeper node36:2181,node38:2181 --create --topic test_topic --partitions 1  --replication-factor 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;WARNING: Due to limitations &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; metric names, topics with a period (&lt;span class=&quot;string&quot;&gt;&#39;.&#39;&lt;/span&gt;) or underscore (&lt;span class=&quot;string&quot;&gt;&#39;_&#39;&lt;/span&gt;) could collide. To avoid issues it is best to use either, but not both.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Created topic &lt;span class=&quot;string&quot;&gt;&quot;test_topic&quot;&lt;/span&gt;.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 新版本的kafka 参数 --zookeeper 被 --bootstrap-server 替换了&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; bin/kafka-topics.sh --create --bootstrap-server node35:9092,node36:9092,node37:9092 --replication-factor 1 --partitions 1 --topic test_topic&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="技术" scheme="http://lingwinloong.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="kafka" scheme="http://lingwinloong.com/categories/%E6%8A%80%E6%9C%AF/kafka/"/>
+    
+    
+      <category term="kafka" scheme="http://lingwinloong.com/tags/kafka/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Ubuntu 使用中的一些小技巧</title>
     <link href="http://lingwinloong.com/2020/04/22/ubuntu-tips/"/>
     <id>http://lingwinloong.com/2020/04/22/ubuntu-tips/</id>
     <published>2020-04-21T16:00:00.000Z</published>
-    <updated>2020-05-05T08:10:17.595Z</updated>
+    <updated>2020-04-30T09:59:00.623Z</updated>
     
     <summary type="html">
     
@@ -55,7 +78,7 @@
     <link href="http://lingwinloong.com/2020/04/18/docker-faq/"/>
     <id>http://lingwinloong.com/2020/04/18/docker-faq/</id>
     <published>2020-04-17T16:00:00.000Z</published>
-    <updated>2020-05-05T08:10:17.594Z</updated>
+    <updated>2020-04-30T09:59:00.623Z</updated>
     
     <summary type="html">
     
@@ -81,7 +104,7 @@
     <link href="http://lingwinloong.com/2020/04/11/docker-Dockerfile/"/>
     <id>http://lingwinloong.com/2020/04/11/docker-Dockerfile/</id>
     <published>2020-04-10T16:00:00.000Z</published>
-    <updated>2020-05-05T08:10:17.592Z</updated>
+    <updated>2020-04-30T09:59:00.623Z</updated>
     
     <summary type="html">
     
@@ -109,7 +132,7 @@
     <link href="http://lingwinloong.com/2020/04/05/docker-commond/"/>
     <id>http://lingwinloong.com/2020/04/05/docker-commond/</id>
     <published>2020-04-04T16:00:00.000Z</published>
-    <updated>2020-05-05T08:10:17.594Z</updated>
+    <updated>2020-04-30T09:59:00.623Z</updated>
     
     <summary type="html">
     
@@ -133,7 +156,7 @@
     <link href="http://lingwinloong.com/2020/03/28/docker-install/"/>
     <id>http://lingwinloong.com/2020/03/28/docker-install/</id>
     <published>2020-03-27T16:00:00.000Z</published>
-    <updated>2020-05-05T08:10:17.594Z</updated>
+    <updated>2020-04-30T09:59:00.623Z</updated>
     
     <summary type="html">
     
