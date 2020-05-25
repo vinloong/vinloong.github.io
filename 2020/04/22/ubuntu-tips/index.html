@@ -76,7 +76,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">866</span>
+            <span class="post-count">1.1k</span>
         </span>
     </span>
 
@@ -85,7 +85,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">4 分钟</span>
+            <span class="post-count">5 分钟</span>
         </span>
     </span>
 </div>
@@ -129,34 +129,65 @@
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改 /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf 文件</span></span><br><span class="line"><span class="comment"># 添加一行：greeter-show-manual-login=true</span></span><br><span class="line">$ sudo vi /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf</span><br><span class="line">greeter-show-manual-login=<span class="literal">true</span>  </span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">$ sudo <span class="built_in">echo</span> <span class="string">"greeter-show-manual-login=true"</span> &gt;&gt; /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置root密码</span></span><br><span class="line">sudo passwd root</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#  mesg n 替换成 tty -s &amp;&amp; mesg n</span></span><br><span class="line">sudo vi /root/.profile</span><br><span class="line"><span class="comment">#  mesg n   &gt;&gt;   tty -s &amp;&amp; mesg n</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="3-查看系统运行时间，负载"><a href="#3-查看系统运行时间，负载" class="headerlink" title="3. 查看系统运行时间，负载"></a>3. 查看系统运行时间，负载</h2><blockquote>
+<h2 id="3-sudo-免密"><a href="#3-sudo-免密" class="headerlink" title="3. sudo 免密"></a>3. <code>sudo</code> 免密</h2><blockquote>
+<p>平时使用 <code>sudo</code> 是需要输入密码的，输入次数太多，比较烦，有什么办法可以不用输入密码呢？</p>
+<p>修改下面配置，免除输入密码，一次修改，一劳永逸（不建议在生产环境配置）</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>1  先修改 <code>sudoers</code> 文件权限</li>
+</ul>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 sudoers 默认权限</span></span><br><span class="line">:~$ ll /etc/sudoers</span><br><span class="line">-r--r----- 1 root root 755 Jan 18  2018 /etc/sudoers</span><br><span class="line">:~$ sudo chmod u+w /etc/sudoers</span><br><span class="line">[sudo] password <span class="keyword">for</span> dragon: <span class="comment"># 输入密码</span></span><br><span class="line"><span class="comment"># 查看 sudoers 修改后的权限</span></span><br><span class="line">:~$ ll /etc/sudoers</span><br><span class="line">-rw-r----- 1 root root 755 Jan 18  2018 /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>2  修改 <code>sudoers</code> 文件</li>
+</ul>
+</blockquote>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在文件中增加一行 $&#123;username&#125; ALL=(ALL) NOPASSWD : ALL</span></span><br><span class="line">:~$ sudo vi /etc/sudoers</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># This file MUST be edited with the 'visudo' command as root.</span></span><br><span class="line"><span class="comment"># ... ...</span></span><br><span class="line"><span class="comment"># See the man page for details on how to write a sudoers file.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># ... ... 中间省略一千字</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 下面是增加的行</span></span><br><span class="line">dragon ALL=(ALL) NOPASSWD : ALL</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li><ol start="3">
+<li>恢复 <code>sudoers</code> 权限</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:~$ sudo chmod u-w /etc/sudoers</span><br><span class="line">:~$ ll /etc/sudoers</span><br><span class="line">-r--r----- 1 root root 828 May 26 00:40 /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>大功告成 . </p>
+</blockquote>
+<h2 id="4-查看系统运行时间，负载"><a href="#4-查看系统运行时间，负载" class="headerlink" title="4. 查看系统运行时间，负载"></a>4. 查看系统运行时间，负载</h2><blockquote>
 <p>有时候我们想知道刺痛上一次复位时什么时候，或者系统已经运行了多长时间了，我们可以通过<code>uptime</code> 命令来获取这些信息</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ uptime</span><br><span class="line"> 19:38:29 up 50 min,  1 users,  load average: 0.52, 0.58, 0.59</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>从左往右显示的信息依次是：当前时间，已运行时间，登录用户数，1分钟、5分钟、15分钟内系统的平均负载</p>
 </blockquote>
-<h2 id="4-查看当前登录的用户"><a href="#4-查看当前登录的用户" class="headerlink" title="4. 查看当前登录的用户"></a>4. 查看当前登录的用户</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ who </span><br><span class="line"><span class="built_in">test</span> tty7         2019-12-24 17:56 (:0)</span><br></pre></td></tr></table></figure>
+<h2 id="5-查看当前登录的用户"><a href="#5-查看当前登录的用户" class="headerlink" title="5. 查看当前登录的用户"></a>5. 查看当前登录的用户</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ who </span><br><span class="line"><span class="built_in">test</span> tty7         2019-12-24 17:56 (:0)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>后面加参数 ``–ips` 还可以看到哪个ip登录这台主机</p>
 </blockquote>
-<h2 id="5-查看目录和文件占用空间"><a href="#5-查看目录和文件占用空间" class="headerlink" title="5. 查看目录和文件占用空间"></a>5. 查看目录和文件占用空间</h2><blockquote>
+<h2 id="6-查看目录和文件占用空间"><a href="#6-查看目录和文件占用空间" class="headerlink" title="6. 查看目录和文件占用空间"></a>6. 查看目录和文件占用空间</h2><blockquote>
 <p><code>du</code>命令直接显示当前目录下每个目录及其文件占用空间。结合<code>--max-depth</code>参数可以指定显示的目录层级</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ du -h --max-depth=1 </span><br><span class="line">19M        ./python</span><br><span class="line">9.0M        ./git</span><br><span class="line">321M        ./hexo</span><br><span class="line">17M        ./lua</span><br><span class="line">28K        ./vim</span><br><span class="line">1.4M        ./shell</span><br><span class="line">81M        ./redis</span><br><span class="line">316M        ./books</span><br><span class="line">48M        ./c</span><br><span class="line">810M        .</span><br><span class="line">$ du -sh     <span class="comment">#仅统计当前目录总大小</span></span><br><span class="line">810M</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>其中<code>-h</code>表示以易读的单位显示大小，即<code>M</code>，<code>--max-depth=1</code>表明目录层级<br>通过命令结果，我们可以看到当前目录下各个子目录占用空间大小，以及总空间大小</p>
 </blockquote>
-<h2 id="6-查看-cpu-信息"><a href="#6-查看-cpu-信息" class="headerlink" title="6. 查看 cpu 信息"></a>6. 查看 cpu 信息</h2><blockquote>
+<h2 id="7-查看-cpu-信息"><a href="#7-查看-cpu-信息" class="headerlink" title="7. 查看 cpu 信息"></a>7. 查看 cpu 信息</h2><blockquote>
 <p>直接使用 <code>cat /proc/cpuinfo</code>  命令会输出cpu 的所有信息<br>配合 <code>grep</code> 只输出我们需要的信息</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 逻辑CPU个数</span></span><br><span class="line">$ cat /proc/cpuinfo | grep <span class="string">"processor"</span> | wc -l</span><br><span class="line">4</span><br><span class="line"><span class="comment"># 物理CPU个数</span></span><br><span class="line">$ cat /proc/cpuinfo | grep <span class="string">"physical id"</span> | sort -u | wc -l</span><br><span class="line">1</span><br><span class="line"><span class="comment"># 每个物理CPU中Core的个数</span></span><br><span class="line">$ cat /proc/cpuinfo | grep <span class="string">"cpu cores"</span> | uniq | awk -F: <span class="string">'&#123;print $2&#125;'</span></span><br><span class="line"> 4</span><br><span class="line"><span class="comment"># 查看core id的数量,即为所有物理CPU上的core的个数</span></span><br><span class="line">$ cat /proc/cpuinfo | grep <span class="string">"core id"</span> | uniq | wc -l</span><br><span class="line">4</span><br><span class="line"><span class="comment"># 查看cpu型号</span></span><br><span class="line">$ cat /proc/cpuinfo | grep <span class="string">'model name'</span> |uniq</span><br><span class="line">model name	: Intel(R) Xeon(R) CPU E5-2403 v2 @ 1.80GHz</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>判断有几个物理CPU/几核/几线程<br>判断依据：<br>1.具有相同core id的cpu是同一个core的超线程<br>2.具有相同physical id的cpu是同一颗cpu封装的线程或者cores</p>
 </blockquote>
-<h2 id="7-查看内核版本"><a href="#7-查看内核版本" class="headerlink" title="7. 查看内核版本"></a>7. 查看内核版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ cat /proc/version</span><br><span class="line">Linux version 4.4.0-170-generic (buildd@lcy01-amd64-019) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12) ) <span class="comment">#199-Ubuntu SMP Thu Nov 14 01:45:04 UTC 2019</span></span><br><span class="line">$ uname -a</span><br><span class="line">Linux anxinyun-m1 4.4.0-170-generic <span class="comment">#199-Ubuntu SMP Thu Nov 14 01:45:04 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">$ uname -r</span><br><span class="line">4.4.0-170-generic</span><br></pre></td></tr></table></figure>
+<h2 id="8-查看内核版本"><a href="#8-查看内核版本" class="headerlink" title="8. 查看内核版本"></a>8. 查看内核版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ cat /proc/version</span><br><span class="line">Linux version 4.4.0-170-generic (buildd@lcy01-amd64-019) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12) ) <span class="comment">#199-Ubuntu SMP Thu Nov 14 01:45:04 UTC 2019</span></span><br><span class="line">$ uname -a</span><br><span class="line">Linux anxinyun-m1 4.4.0-170-generic <span class="comment">#199-Ubuntu SMP Thu Nov 14 01:45:04 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">$ uname -r</span><br><span class="line">4.4.0-170-generic</span><br></pre></td></tr></table></figure>
 
-<h2 id="8-查看发行版及其版本号"><a href="#8-查看发行版及其版本号" class="headerlink" title="8. 查看发行版及其版本号"></a>8. 查看发行版及其版本号</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/issue</span><br><span class="line">Ubuntu 16.04.5 LTS \n \l</span><br><span class="line"></span><br><span class="line">$ cat /etc/lsb-release</span><br><span class="line">DISTRIB_ID=Ubuntu</span><br><span class="line">DISTRIB_RELEASE=16.04</span><br><span class="line">DISTRIB_CODENAME=xenial</span><br><span class="line">DISTRIB_DESCRIPTION=<span class="string">"Ubuntu 16.04.5 LTS"</span></span><br><span class="line"></span><br><span class="line">$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Ubuntu</span><br><span class="line">Description:	Ubuntu 16.04.5 LTS</span><br><span class="line">Release:	16.04</span><br><span class="line">Codename:	xenial</span><br></pre></td></tr></table></figure>
+<h2 id="9-查看发行版及其版本号"><a href="#9-查看发行版及其版本号" class="headerlink" title="9. 查看发行版及其版本号"></a>9. 查看发行版及其版本号</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/issue</span><br><span class="line">Ubuntu 16.04.5 LTS \n \l</span><br><span class="line"></span><br><span class="line">$ cat /etc/lsb-release</span><br><span class="line">DISTRIB_ID=Ubuntu</span><br><span class="line">DISTRIB_RELEASE=16.04</span><br><span class="line">DISTRIB_CODENAME=xenial</span><br><span class="line">DISTRIB_DESCRIPTION=<span class="string">"Ubuntu 16.04.5 LTS"</span></span><br><span class="line"></span><br><span class="line">$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Ubuntu</span><br><span class="line">Description:	Ubuntu 16.04.5 LTS</span><br><span class="line">Release:	16.04</span><br><span class="line">Codename:	xenial</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       

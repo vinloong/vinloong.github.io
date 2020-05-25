@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://lingwinloong.com/2020/04/22/ubuntu-tips/</loc>
+    
+    <lastmod>2020-05-25T16:51:45.425Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lingwinloong.com/2020/04/30/kafka-common/</loc>
+    
+    <lastmod>2020-05-25T12:41:34.013Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://lingwinloong.com/tags/index.html</loc>
     
     <lastmod>2020-05-05T08:10:17.598Z</lastmod>
@@ -12,13 +26,6 @@
     <loc>http://lingwinloong.com/categories/index.html</loc>
     
     <lastmod>2020-05-05T08:10:17.597Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://lingwinloong.com/2020/04/22/ubuntu-tips/</loc>
-    
-    <lastmod>2020-05-05T08:10:17.595Z</lastmod>
     
   </url>
   
