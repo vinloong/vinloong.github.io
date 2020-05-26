@@ -11,7 +11,7 @@
    
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Tag: linux |  小岛
+    忘记 Linux root 密码 |  小岛
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -44,80 +44,257 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article class="articles">
+  <article id="post-change-passwd" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">#&nbsplinux</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2020" class="archive-year">2020</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/05/26/change-passwd/" class="archive-article-date">
-  <time datetime="2020-05-25T16:00:00.000Z" itemprop="datePublished">05/26</time>
-</a>
+    <header class="article-header">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/05/26/change-passwd/"
-    >忘记 Linux root 密码</a> 
-</h2>
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  忘记 Linux root 密码
+</h1>
  
 
     </header>
     
+
     
+    <div class="article-meta">
+      <a href="/2020/05/26/change-passwd/" class="article-date">
+  <time datetime="2020-05-25T16:00:00.000Z" itemprop="datePublished">2020-05-26</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a> / <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/Linux/">Linux</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">216</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <blockquote>
+<p>使用 linux  过程中，偶尔会遇到忘记密码或者电脑被黑密码被修改了，自己无法登录系统，这时怎么办，本篇文章告诉你应该怎么做。</p>
+</blockquote>
+<h2 id="1-重启系统"><a href="#1-重启系统" class="headerlink" title="1. 重启系统"></a>1. 重启系统</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 根据提示在系统启动菜单，选择系统，然后根据提示 按 &#96;e&#96; 修改启动参数</span><br><span class="line">Use the ↑ and ↓ keys to changed the selection.</span><br><span class="line">Press &#39;e&#39; to edit the selected item. or &#39;c&#39; for ... ...</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="2-修改参数"><a href="#2-修改参数" class="headerlink" title="2. 修改参数"></a>2. 修改参数</h2><p>向下滚动光标，找到  <code>...root=/dev/Mapper/centos-root ro rd.lvm.lv=...</code> 主要时找 <strong>ro</strong><br>把 ro 更改为 <code>rw init=/sysroot/bin/sh</code><br>修改完成，根据提示 按 <code>Ctrl-x</code></p>
+<h2 id="3-修改密码"><a href="#3-修改密码" class="headerlink" title="3. 修改密码"></a>3. 修改密码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">passwd root <span class="comment"># 不只是root,任何你想修改的可登录用户名</span></span><br><span class="line"><span class="comment"># 下面根据系统提示输入新密码并确认密码</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-重启系统"><a href="#4-重启系统" class="headerlink" title="4. 重启系统"></a>4. 重启系统</h2><blockquote>
+<p>使用新创建的密码登录</p>
+</blockquote>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong>
+              本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://lingwinloong.com/2020/05/26/change-passwd/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
 
-    
+
+    </footer>
+
   </div>
-</article>
-      
+
   
   
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/04/22/ubuntu-tips/" class="archive-article-date">
-  <time datetime="2020-04-21T16:00:00.000Z" itemprop="datePublished">04/22</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/04/22/ubuntu-tips/"
-    >Ubuntu 使用中的一些小技巧</a> 
-</h2>
- 
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/04/30/kafka-common/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">kafka 一般操作</div>
+      </a>
+    
+  </nav>
 
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a></li></ul>
 
-    
-  </div>
-</article>
-      
-      
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
     </div>
-  </div>
-  
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '1NzunV96zMn1z5KKWwmrX7qX-gzGzoHsz',
+        app_key: '0GzaCmIldlSgQDmJqCM2nrgo',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
   
 
   
+  
+  
+  
+  
+
+</article>
 </section>
+<script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+  </script>
+  
       <footer class="footer">
   <div class="outer">
     <ul>
@@ -277,6 +454,24 @@
 </script>
 
 
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 
 
