@@ -20,9 +20,9 @@ const baseUrl = process.env.BASE_URL ?? '/';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Docusaurus',
-  tagline: 'Build optimized websites quickly, focus on your content',
-  organizationName: 'facebook',
-  projectName: 'docusaurus',
+  tagline: '音乐、烧烤、啤酒和代码',
+  organizationName: 'loong',
+  projectName: 'wiki',
   baseUrl,
   baseUrlIssueBanner: false,
   url: 'https://docusaurus.io',
@@ -220,9 +220,9 @@ const config = {
       },
       image: 'img/docusaurus-soc.png',
       algolia: {
-        appId: 'X1Z85QJPUV',
-        apiKey: 'bf7211c161e8205da2f933a02534105a',
-        indexName: 'docusaurus-2',
+        appId: 'I94P2ULG0T',
+        apiKey: '85e9f874db12658e9b914dddf0bc8675',
+        indexName: 'wiki',
       },
       navbar: {
         hideOnScroll: true,
@@ -244,7 +244,7 @@ const config = {
           {to: 'blog', label: 'Blog', position: 'left'},
           // Right
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/vinloong/wiki',
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository',

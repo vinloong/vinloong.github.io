@@ -37,22 +37,19 @@ function HeroBanner() {
                 message:
                   'Build <b>optimized</b> websites <b>quickly</b>, focus on your <b>content</b>',
                 description:
-                  'Home page hero title, can contain simple html tags',
+                  '音乐、烧烤、啤酒和代码',
               }),
             }}
           />
         </h1>
         <div className={styles.indexCtas}>
           <Link className="button button--primary" to="/docs">
-            <Translate>Get Started</Translate>
-          </Link>
-          <Link className="button button--info" to="https://docusaurus.new">
-            <Translate>Try a Demo</Translate>
+            <Translate>My Documents</Translate>
           </Link>
           <span className={styles.indexCtasGitHubButtonWrapper}>
             <iframe
-              className={styles.indexCtasGitHubButton}
-              src="https://ghbtns.com/github-btn.html?user=facebook&amp;repo=docusaurus&amp;type=star&amp;count=true&amp;size=large"
+              className={styles.indexCtasGitHubButton}              
+              src="https://ghbtns.com/github-btn.html?user=vinloong&amp;repo=wiki&amp;type=star&amp;count=false&amp;size=large"
               width={160}
               height={30}
               title="GitHub Stars"
