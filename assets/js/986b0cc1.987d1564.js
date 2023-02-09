@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[4283],{9833:e=>{e.exports=JSON.parse('{"label":"nvm","permalink":"/docs/tags/nvm","allTagsPath":"/docs/tags","count":1,"items":[{"id":"dev&ops/nodejs/nvm","title":"\u4f7f\u7528 nvm \u7ba1\u7406 nodejs \u7248\u672c ","description":"\u5b89\u88c5","permalink":"/docs/dev&ops/nodejs/nvm"}]}')}}]);
